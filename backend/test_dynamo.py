@@ -29,7 +29,6 @@ item = {
 # else:
 #     print("Error writing item to DynamoDB")
 
-
 r = table.scan(
     FilterExpression=Attr('category').eq("Food")
 )
