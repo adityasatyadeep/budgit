@@ -1,71 +1,33 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
+import {
+  Route, 
+  createBrowserRouter, 
+  createRoutesFromElements, 
+  RouterProvider
+} from 'react-router-dom'
 
-function App() {
-  const [formData, setFormData] = useState({
-    category: '',
-    description: '',
-    price: '',
-  });
+import MainLayout from './layouts/MainLayout';
+import BudgetPage from './pages/BudgetPage';
+import FormPage from './pages/FormPage';
+import HistoryPage from './pages/HistoryPage';
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<MainLayout />}> 
+      <Route index element={<BudgetPage />} />
+      <Route path='/form' element={<FormPage />} />
+      <Route path='/history' element={<HistoryPage />} />
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://127.0.0.1:5000/upload', formData);
-      console.log(response.data);
-    } catch (error) {
-      console.error('There was an error!', error);
-    }
-  };
+      {/* <Route path='*' element={<NotFoundPage />} /> */}
+    </Route>
+  )
+);
 
+const App = () => {
   return (
-    <div className="App">
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            Category: 
-            <input
-              type="text"
-              name="category"
-              value={formData.category}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Description: 
-            <input
-              type="text"
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Price: $
-            <input
-              type="text"
-              name="price"
-              value={formData.price}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+    <RouterProvider router={router} />
   );
 }
 
