@@ -29,25 +29,35 @@ item = {
     "timestamp": str(datetime.datetime.now())
 }
 
-@app.route('/upload', methods=['GET'])
+@app.route('/upload', methods=['POST'])
 def upload_chipotle():
-    # Write the item to the table
-    response = table.put_item(Item=item)
+    try:
+        # Parse JSON data from the request
+        item = request.get_json()
+        item["timestamp"] = str(datetime.datetime.now())
+        item["user_id"] = "1"
+        print(item)
+        # Write the item to the DynamoDB table
+        response = table.put_item(Item=item)
 
-    # Check the response
-    if response['ResponseMetadata']['HTTPStatusCode'] == 200:
-        print("Item successfully written to DynamoDB")
-    else:
-        print("Error writing item to DynamoDB")
-    
-    return "Item successfully written to DB"
+        # Check the response
+        if response['ResponseMetadata']['HTTPStatusCode'] == 200:
+            print("Item successfully written to DynamoDB")
+            return jsonify({"message": "Item successfully written to DB"}), 200
+        else:
+            print("Error writing item to DynamoDB")
+            return jsonify({"message": "Error writing item to DB"}), 500
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return jsonify({"message": "An error occurred", "error": str(e)}), 500
 
 @app.route('/getItems', methods=['GET'])
 def get_items():
     r = table.scan(
-        FilterExpression=Attr('category').eq("Food")
+        FilterExpression=Attr('category').eq("Gas")
     )
     items = r['Items']
+    # print(items)
     return str(items)
 
 # r = table.scan(

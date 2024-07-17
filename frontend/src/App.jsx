@@ -4,8 +4,9 @@ import './App.css';
 
 function App() {
   const [formData, setFormData] = useState({
-    textBox1: '',
-    textBox2: '',
+    category: '',
+    description: '',
+    price: '',
   });
 
   const handleChange = (e) => {
@@ -19,7 +20,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get('http://127.0.0.1:5000/upload', formData);
+      const response = await axios.post('http://127.0.0.1:5000/upload', formData);
       console.log(response.data);
     } catch (error) {
       console.error('There was an error!', error);
@@ -31,22 +32,33 @@ function App() {
       <form onSubmit={handleSubmit}>
         <div>
           <label>
-            Text Box 1:
+            Category: 
             <input
               type="text"
               name="category"
-              value={formData.textBox1}
+              value={formData.category}
               onChange={handleChange}
             />
           </label>
         </div>
         <div>
           <label>
-            Text Box 2:
+            Description: 
             <input
               type="text"
               name="description"
-              value={formData.textBox2}
+              value={formData.description}
+              onChange={handleChange}
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            Price: $
+            <input
+              type="text"
+              name="price"
+              value={formData.price}
               onChange={handleChange}
             />
           </label>
