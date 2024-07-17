@@ -53,12 +53,13 @@ def upload_chipotle():
 
 @app.route('/getItems', methods=['GET'])
 def get_items():
+    user_id = request.args.get('user_id', type=int)
     r = table.scan(
-        FilterExpression=Attr('user_id').eq('1')
+        FilterExpression=Attr('user_id').eq(str(user_id))
     )
     items = r['Items']
     # print(items)
-    return str(items)
+    return jsonify(items)
 
 # r = table.scan(
 #     FilterExpression=Attr('category').eq("Food")
