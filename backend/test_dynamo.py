@@ -54,7 +54,7 @@ def upload_chipotle():
 @app.route('/getItems', methods=['GET'])
 def get_items():
     r = table.scan(
-        FilterExpression=Attr('category').eq("Gas")
+        FilterExpression=Attr('user_id').eq('1')
     )
     items = r['Items']
     # print(items)
