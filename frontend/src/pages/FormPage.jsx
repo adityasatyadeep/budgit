@@ -26,7 +26,17 @@ const FormPage = () => {
         type: "datetime-local",
       }]
 
-      const categories = ["Food", "Drinks", "Gas", "Recreation", "Groceries", "Gifts", "Technology", "Rent"]
+      const categories =[
+        { emoji: "🍔", value: "Food" },
+        { emoji: "🥤", value: "Drinks" },
+        { emoji: "⛽️", value: "Gas" },
+        { emoji: "🏀", value: "Recreation" },
+        { emoji: "🥕", value: "Groceries" },
+        { emoji: "🎁", value: "Gifts" },
+        { emoji: "💻", value: "Technology" },
+        { emoji: "🏠", value: "Rent" }
+      ]
+      
 
       return (
         <Form fields={fields} options={categories}/>
