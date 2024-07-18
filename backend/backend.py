@@ -42,7 +42,7 @@ def upload():
             item["date"] = str(datetime.datetime.now())
         else:
             item["date"] = item["date"].replace("T"," ")
-        print(item)
+        print("Uploading item: "+str(item))
         # Write the item to the DynamoDB table
         response = table.put_item(Item=item)
 

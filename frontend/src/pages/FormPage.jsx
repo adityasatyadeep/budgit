@@ -34,7 +34,8 @@ const FormPage = () => {
         { emoji: "🥕", value: "Groceries" },
         { emoji: "🎁", value: "Gifts" },
         { emoji: "💻", value: "Technology" },
-        { emoji: "🏠", value: "Rent" }
+        { emoji: "🏠", value: "Rent" },
+        { emoji: "♾️", value: "Miscellaneous" }
       ]
       
 

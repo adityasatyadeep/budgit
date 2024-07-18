@@ -65,6 +65,7 @@ const FormRow = ({ label, type, name, value, options, onChange }) => {
           value={value}
           onChange={onChange}
         >
+          <option value="" selected="selected" hidden="hidden">--Select--</option>
           {options.map((option) => (
               <option value={option.value}>{option.emoji + option.value}</option>
           ))}
