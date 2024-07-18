@@ -3,6 +3,7 @@ from boto3.dynamodb.conditions import Key, Attr
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import datetime
+from decimal import Decimal
 
 
 app = Flask(__name__)
@@ -21,21 +22,22 @@ table_name = 'transactions'
 table = dynamodb.Table(table_name)
 
 # Define the item to be written
-item = {
+item2 = {
     "category": "Food",
     "user_id": "1",
     "description": "Voyager Coffee",
-    "price": "5.50",
+    "price": Decimal(5.50),
     "timestamp": str(datetime.datetime.now())
 }
 
 @app.route('/upload', methods=['POST'])
-def upload_chipotle():
+def upload():
     try:
         # Parse JSON data from the request
         item = request.get_json()
         item["timestamp"] = str(datetime.datetime.now())
         item["user_id"] = "1"
+        item["price"] = Decimal(item["price"])
         print(item)
         # Write the item to the DynamoDB table
         response = table.put_item(Item=item)
