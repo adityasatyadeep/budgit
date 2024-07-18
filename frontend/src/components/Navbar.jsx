@@ -8,8 +8,8 @@ import { NavLink } from 'react-router-dom'
 const Navbar = () => {
 
     const linkClass = ({isActive}) => isActive 
-    ? 'text-black bg-pink-600 hover:bg-pink-900 hover:text-white rounded-md px-3 py-2' 
-    : 'text-white bg-black hover:bg-pink-900 hover:text-white rounded-md px-3 py-2'
+    ? 'text-black bg-pink-300 hover:bg-pink-600 hover:text-white rounded-md px-3 py-2' 
+    : 'text-white bg-black hover:bg-pink-600 hover:text-white rounded-md px-3 py-2'
   
     return (
         <nav className="bg-black border-b border-pink-700">
@@ -19,8 +19,8 @@ const Navbar = () => {
                 className="flex flex-1 items-center justify-center md:items-stretch md:justify-start"
               >
                 {/* <!-- Logo --> */}
-                <NavLink>
-                </NavLink>
+                {/* <NavLink>
+                </NavLink> */}
                 <div className="md:ml-auto">
                   <div className="flex space-x-2">
                     <NavLink
