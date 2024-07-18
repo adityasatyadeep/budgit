@@ -38,6 +38,10 @@ def upload():
         item["timestamp"] = str(datetime.datetime.now())
         item["user_id"] = "1"
         item["price"] = Decimal(item["price"])
+        if item["date"] == "":
+            item["date"] = str(datetime.datetime.now())
+        else:
+            item["date"] = item["date"].replace("T"," ")
         print(item)
         # Write the item to the DynamoDB table
         response = table.put_item(Item=item)

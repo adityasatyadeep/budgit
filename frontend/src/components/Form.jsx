@@ -62,7 +62,7 @@ import FormRow from './FormRow';
 // }
 
 
-const Form = ({ fields }) => {
+const Form = ({ fields,options }) => {
     
     const [formData, setFormData] = useState(() => {
         var initialState = {};
@@ -92,13 +92,14 @@ const Form = ({ fields }) => {
     };
   
     return (
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form onSubmit={handleSubmit} className="bg-fuchsia-100 shadow-md rounded px-8 pt-6 pb-8 mb-4">
         {fields.map((field, index) => (
           <FormRow
             key={index}
             label={field.label}
-            type="text"
+            type={field.type}
             name={field.name}
+            options={options}
             value={formData[field.name]}
             onChange={handleChange}
           />
