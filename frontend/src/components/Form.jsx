@@ -3,6 +3,8 @@ import axios from 'axios';
 import SubmitButton from '../components/SubmitButton';
 import FormRow from './FormRow';
 import Box from '@mui/material/Box';
+import dayjs from 'dayjs';
+
 
 // const Form = () => {
 //     const [formData, setFormData] = useState({
@@ -68,7 +70,12 @@ const Form = ({ fields,options }) => {
     const [formData, setFormData] = useState(() => {
         var initialState = {};
         fields.forEach(field => {
-          initialState[field.name] = '';
+          if (field.name=="date"){
+            initialState[field.name] = dayjs();
+          }
+          else{
+            initialState[field.name] = '';
+          }
         });
         return initialState;
       });
@@ -76,6 +83,7 @@ const Form = ({ fields,options }) => {
   
     const handleChange = (e) => {
         const { name, value } = e.target;
+        console.log("Changing ", name, " to ", value);
         setFormData({
             ...formData,
             [name]: value,
@@ -86,6 +94,8 @@ const Form = ({ fields,options }) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://127.0.0.1:5000/upload', formData);
+            
+            console.log("Sending formdata to backend:", formData);
             console.log(response.data);
         } catch (error) {
             console.error('There was an error!', error);
@@ -97,7 +107,7 @@ const Form = ({ fields,options }) => {
         <Box
           component="form"
           sx={{
-            '& .MuiTextField-root': { m: 1, width: '25ch' },
+            '& .MuiTextField-root': { m: 1, width: '30ch' },
           }}
           noValidate
           autoComplete="off"
