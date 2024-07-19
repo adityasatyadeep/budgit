@@ -23,7 +23,7 @@ const Navbar = () => {
                                     to="/form"
                                     className={linkClass}
                                 >
-                                    Add Transaction
+                                    Record Transaction
                                 </NavLink>
                                 <NavLink
                                     to="/history"
