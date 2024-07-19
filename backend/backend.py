@@ -71,7 +71,7 @@ def get_items():
     r = table.scan(
         FilterExpression=
         Attr('user_id').eq(str(user_id))
-        & Attr('category').eq(str(categories[0]))
+        & Attr('category').is_in(categories)
         & Attr('price').between(min_price, max_price)
     )
     items = r['Items']
