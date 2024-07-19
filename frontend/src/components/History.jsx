@@ -28,49 +28,34 @@ const History = ({ filters }) => {
       console.log(value)
     };
 
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:5000/getItems`, {
+          params: { user_id: userId, categories: filters2["categories"].join(), min_price: filters2["min_price"], max_price: filters2["max_price"]},
+        });
+
+        // Ensure each row has a unique 'id' property
+        const dataWithIds = response.data.map((item, index) => ({
+          ...item,
+          id: item.id || index,
+        }));
+        console.log(dataWithIds)
+
+        setRows(dataWithIds);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
     const handleSubmit = async (e) => {
       e.preventDefault();
-      console.log("HELLO" + filters2)
-      try {
-          const response = await axios.get('http://127.0.0.1:5000/getItems', {
-            params: { user_id: userId, 'categories': filters2["categories"].join(), min_price: filters2["min_price"], max_price: filters2["max_price"]},
-          });
-          const dataWithIds = response.data.map((item, index) => ({
-            ...item,
-            id: item.id || index,
-          }));
-          console.log(dataWithIds)
-  
-          setRows(dataWithIds);
-          setLoading(false);
-      } catch (error) {
-          console.error('There was an error!', error);
-      };
+      fetchData();
     }
   
     useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await axios.get(`http://127.0.0.1:5000/getItems`, {
-            params: { user_id: userId, categories: filters2["categories"].join(), min_price: filters2["min_price"], max_price: filters2["max_price"]},
-          });
-  
-          // Ensure each row has a unique 'id' property
-          const dataWithIds = response.data.map((item, index) => ({
-            ...item,
-            id: item.id || index,
-          }));
-          console.log(dataWithIds)
-  
-          setRows(dataWithIds);
-          setLoading(false);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      };
-  
       fetchData();
-    }, [userId]);
+    }, []);
   
     const columns = [
       { 
