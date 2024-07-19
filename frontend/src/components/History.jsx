@@ -35,7 +35,14 @@ const History = ({ filters }) => {
           const response = await axios.get('http://127.0.0.1:5000/getItems', {
             params: { user_id: userId, 'categories': filters2["categories"].join(), min_price: filters2["min_price"], max_price: filters2["max_price"]},
           });
-          console.log(response.data);
+          const dataWithIds = response.data.map((item, index) => ({
+            ...item,
+            id: item.id || index,
+          }));
+          console.log(dataWithIds)
+  
+          setRows(dataWithIds);
+          setLoading(false);
       } catch (error) {
           console.error('There was an error!', error);
       };
@@ -53,6 +60,7 @@ const History = ({ filters }) => {
             ...item,
             id: item.id || index,
           }));
+          console.log(dataWithIds)
   
           setRows(dataWithIds);
           setLoading(false);

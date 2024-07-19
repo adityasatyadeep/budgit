@@ -75,7 +75,7 @@ def get_items():
         & Attr('price').between(min_price, max_price)
     )
     items = r['Items']
-    # print(items)
+    print(items)
     return jsonify(items)
 
 if __name__ == '__main__':
