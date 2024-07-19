@@ -8,16 +8,22 @@ const History = ({ filters }) => {
     const [rows, setRows] = useState([]);
     const [loading, setLoading] = useState(true);
     const userId = 1; // Replace with the actual user ID you want to use
-  
-    const category = filters["category"];
-    const min_price = filters["min_price"];
-    const max_price = filters["max_price"];
 
     const [filters2, setFilters2] = useState({
       categories: ['Food', 'Drinks', 'Gas', 'Recreation', 'Groceries', 'Gifts', 'Technology', 'Rent', 'Miscellaneous'],
       min_price: 0, 
       max_price: 5000
     });
+
+    const dateOptions = { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric', 
+      hour: 'numeric', 
+      minute: '2-digit', 
+      hour12: true 
+    };
+    
   
     const handleChangeOfFilters = (name, value) => {
       // const { name, value } = e.target;
@@ -37,9 +43,10 @@ const History = ({ filters }) => {
         // Ensure each row has a unique 'id' property
         const dataWithIds = response.data.map((item, index) => ({
           ...item,
+          formattedDate: new Date(item.timestamp).toLocaleString('en-US', dateOptions),
           id: item.id || index,
         }));
-        console.log(dataWithIds)
+        console.log("DATA:", dataWithIds)
 
         setRows(dataWithIds);
         setLoading(false);
@@ -59,8 +66,8 @@ const History = ({ filters }) => {
   
     const columns = [
       { 
-        field: 'timestamp',
-        headerName: 'Date-Time',
+        field: 'formattedDate',
+        headerName: 'Date',
         width: 150, 
       },
       { field: 'category', headerName: 'Category', width: 150 },
@@ -95,7 +102,7 @@ const History = ({ filters }) => {
       <FilterBar onChange={handleChangeOfFilters} onSubmit={handleSubmit}/>
       <Container>
         <Typography variant="h4" gutterBottom>
-          History Page
+          My transactions
         </Typography>
         <div style={{ height: 450, width: '100%' }}>
           <DataGrid
