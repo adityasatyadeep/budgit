@@ -2,6 +2,7 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import MultipleSelect from './MultipleSelect';
 import SubmitButton from './SubmitButton';
+import RangeSlider from './RangeSlider';
 
 const FilterBar = ( { onChange, onSubmit }) => {
 
@@ -9,7 +10,7 @@ const FilterBar = ( { onChange, onSubmit }) => {
     <div>
         Filter By
         <MultipleSelect onChange={ onChange } />
-
+        
         <TextField
             hiddenLabel
             id="filled-hidden-label-small"
@@ -18,7 +19,9 @@ const FilterBar = ( { onChange, onSubmit }) => {
             size="small"
         />
 
-        <SubmitButton onSubmit={onSubmit}/>
+        <RangeSlider onChange = {onChange}/>
+        <SubmitButton onSubmit = {onSubmit}/>
+
 
     </div>
   )
