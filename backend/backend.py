@@ -59,20 +59,24 @@ def upload():
 
 @app.route('/getItems', methods=['GET'])
 def get_items():
+    # filters = request.get_json()
+    # print(filters)
     user_id = request.args.get('user_id', type=int)
+    categories = request.args.get('categories',type=str).split(",")
+    min_price = request.args.get('min_price', type=Decimal)
+    max_price = request.args.get('max_price', type=Decimal)
+    print("user_id:", user_id)
+    print("Catergories:", categories)
+
     r = table.scan(
-        FilterExpression=Attr('user_id').eq(str(user_id))
+        FilterExpression=
+        Attr('user_id').eq(str(user_id))
+        & Attr('category').is_in(categories)
+        & Attr('price').between(min_price, max_price)
     )
     items = r['Items']
-    # print(items)
+    print(items)
     return jsonify(items)
-
-# r = table.scan(
-#     FilterExpression=Attr('category').eq("Food")
-# )
-# items = r['Items']
-# print(items)
-# print(len(items))
 
 if __name__ == '__main__':
     app.run(debug=True)

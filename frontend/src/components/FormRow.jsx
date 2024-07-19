@@ -1,7 +1,7 @@
-import React from 'react';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import MenuItem from '@mui/material/MenuItem';
+import React, { useState, useEffect } from 'react';
 
 const FormRow = ({ label, type, name, value, options, onChange }) => {
   const formatNumber = (value) => {
