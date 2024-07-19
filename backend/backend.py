@@ -60,19 +60,19 @@ def upload():
 @app.route('/getItems', methods=['GET'])
 def get_items():
     user_id = request.args.get('user_id', type=int)
+    category = request.args.get('category', type=str)
+    min_price = request.args.get('min_price', type=Decimal)
+    max_price = request.args.get('max_price', type=Decimal)
+
     r = table.scan(
-        FilterExpression=Attr('user_id').eq(str(user_id))
+        FilterExpression=
+        Attr('user_id').eq(str(user_id))
+        & Attr('category').eq(str(category))
+        & Attr('price').between(min_price, max_price)
     )
     items = r['Items']
     # print(items)
     return jsonify(items)
-
-# r = table.scan(
-#     FilterExpression=Attr('category').eq("Food")
-# )
-# items = r['Items']
-# print(items)
-# print(len(items))
 
 if __name__ == '__main__':
     app.run(debug=True)
