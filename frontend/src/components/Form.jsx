@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SubmitButton from '../components/SubmitButton';
 import FormRow from './FormRow';
+import Box from '@mui/material/Box';
 
 // const Form = () => {
 //     const [formData, setFormData] = useState({
@@ -93,17 +94,26 @@ const Form = ({ fields,options }) => {
   
     return (
       <form onSubmit={handleSubmit} className="bg-fuchsia-100 shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        {fields.map((field, index) => (
-          <FormRow
-            key={index}
-            label={field.label}
-            type={field.type}
-            name={field.name}
-            options={options}
-            value={formData[field.name]}
-            onChange={handleChange}
-          />
-        ))}
+        <Box
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { m: 1, width: '25ch' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          {fields.map((field, index) => (
+            <FormRow
+              key={index}
+              label={field.label}
+              type={field.type}
+              name={field.name}
+              options={options}
+              value={formData[field.name]}
+              onChange={handleChange}
+            />
+          ))}
+        </Box>
         <div className="flex items-center justify-between">
           <SubmitButton onSubmit={handleSubmit} />
         </div>
