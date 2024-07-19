@@ -14,7 +14,7 @@ const History = ({ filters }) => {
     const max_price = filters["max_price"];
 
     const [filters2, setFilters2] = useState({
-      categories: [],
+      categories: ['Food', 'Drinks', 'Gas', 'Recreation', 'Groceries', 'Gifts', 'Technology', 'Rent', 'Miscellaneous'],
       min_price: 0, 
       max_price: 100
     });
