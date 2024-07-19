@@ -59,15 +59,20 @@ def upload():
 
 @app.route('/getItems', methods=['GET'])
 def get_items():
+    filters = request.get_json()
+    print("SEXXXXX")
+    print(filters)
     user_id = request.args.get('user_id', type=int)
-    category = request.args.get('category', type=str)
+    categories = request.args.get('categories', type=list)
     min_price = request.args.get('min_price', type=Decimal)
     max_price = request.args.get('max_price', type=Decimal)
+
+    print("Catergories:", categories)
 
     r = table.scan(
         FilterExpression=
         Attr('user_id').eq(str(user_id))
-        & Attr('category').eq(str(category))
+        & Attr('category').eq(str(categories[0]))
         & Attr('price').between(min_price, max_price)
     )
     items = r['Items']

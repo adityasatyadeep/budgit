@@ -29,27 +29,30 @@ const categories =[
     { emoji: "♾️", value: "Miscellaneous" }
   ]
 
-function getStyles(category, personCategory, theme) {
+function getStyles(category, categoriesInBar, theme) {
   return {
     fontWeight:
-      personCategory.indexOf(category) === -1
+      categoriesInBar.indexOf(category) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
   };
 }
 
-export default function MultipleSelect() {
+export default function MultipleSelect({onChange}) {
   const theme = useTheme();
-  const [personCategory, setPersonCategory] = React.useState([]);
+  const [categoriesInBar, setcategoriesInBar] = React.useState([]);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonCategory(
+    setcategoriesInBar(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
+    console.log(value)
+    onChange("categories", value);
+
   };
 
   return (
@@ -60,7 +63,7 @@ export default function MultipleSelect() {
           labelId="demo-multiple-category-label"
           id="demo-multiple-category"
           multiple
-          value={personCategory}
+          value={categoriesInBar}
           onChange={handleChange}
           input={<OutlinedInput label="category" />}
           MenuProps={MenuProps}
@@ -69,7 +72,7 @@ export default function MultipleSelect() {
             <MenuItem
               key={category.value}
               value={category.value}
-              style={getStyles(category.value, personCategory, theme)}
+              style={getStyles(category.value, categoriesInBar, theme)}
             >
               {category.emoji + " " + category.value}
             </MenuItem>
