@@ -13,32 +13,24 @@ const Input = styled(MuiInput)`
 `;
 
 const RangeSlider = ({ onChange }) => {
-  const [value, setValue] = React.useState([0, 20]);
+  const [value, setValue] = React.useState([0, 100]);
 
 
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    console.log("newValue", newValue)
-    onChange("min_price", Math.min(...value));
-    onChange("max_price", Math.max(...value));
+    console.log("newValue", newValue);
+    onChange(newValue);
   };
 
   const handleInput0Change = (event) => {
-    setValue([event.target.value, value[1]])
-    onChange("min_price", Math.min(...value));
-    console.log("handleInput0")
-
-
-    onChange("max_price", Math.max(...value));  
+    setValue([event.target.value, value[1]]);
+    onChange([event.target.value, value[1]]);
   };
 
   const handleInput1Change = (event) => {
-    setValue([value[0], event.target.value])
-    onChange("min_price", Math.min(...value));
-
-    onChange("max_price", Math.max(...value));
-
+    setValue([value[0], event.target.value]);
+    onChange([value[0], event.target.value]);
   };
 
   return (
@@ -50,6 +42,7 @@ const RangeSlider = ({ onChange }) => {
         valueLabelDisplay="auto"
         getAriaValueText={valuetext}
         min={0} max={100}
+        color="secondary"
       />
 
 

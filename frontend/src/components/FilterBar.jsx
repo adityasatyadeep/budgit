@@ -4,7 +4,7 @@ import MultipleSelect from './MultipleSelect';
 import SubmitButton from './SubmitButton';
 import RangeSlider from './RangeSlider';
 
-const FilterBar = ( { onChange, onSubmit }) => {
+const FilterBar = ( { onChange, onSubmit, handlePriceRange}) => {
 
   return (
     <div>
@@ -19,8 +19,8 @@ const FilterBar = ( { onChange, onSubmit }) => {
             size="small"
         />
 
-        <RangeSlider onChange = {onChange}/>
-        <SubmitButton onSubmit = {onSubmit}/>
+        <RangeSlider onChange = {handlePriceRange} />
+        <SubmitButton onSubmit = {onSubmit} />
 
 
     </div>
