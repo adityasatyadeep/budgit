@@ -16,7 +16,7 @@ const History = ({ filters }) => {
     const [filters2, setFilters2] = useState({
       categories: ['Food', 'Drinks', 'Gas', 'Recreation', 'Groceries', 'Gifts', 'Technology', 'Rent', 'Miscellaneous'],
       min_price: 0, 
-      max_price: 100
+      max_price: 5000
     });
   
     const handleChangeOfFilters = (name, value) => {

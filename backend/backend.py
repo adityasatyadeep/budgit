@@ -2,8 +2,11 @@ import boto3
 from boto3.dynamodb.conditions import Key, Attr
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
-import datetime
+from datetime import datetime
+import pytz
 from decimal import Decimal
+from dateutil import parser
+
 
 
 app = Flask(__name__)
@@ -27,21 +30,38 @@ item2 = {
     "user_id": "1",
     "description": "Voyager Coffee",
     "price": Decimal(5.50),
-    "timestamp": str(datetime.datetime.now())
+    "timestamp": str(datetime.now())
 }
+def convert_to_local_time(gmt_timestamp):
+    try:
+        # Parse the GMT timestamp to a datetime object
+        gmt_time = parser.isoparse(gmt_timestamp)
+        
+        # Ensure the timezone is set to GMT/UTC
+        if gmt_time.tzinfo is None:
+            gmt_time = gmt_time.replace(tzinfo=pytz.utc)
+        else:
+            gmt_time = gmt_time.astimezone(pytz.utc)
+        
+        # Convert to local time
+        local_time = gmt_time.astimezone()
+        
+        return local_time.strftime("%Y-%m-%d %H:%M:%S")
+    except Exception as e:
+        return f"An error occurred: {e}"
 
 @app.route('/upload', methods=['POST'])
 def upload():
     try:
         # Parse JSON data from the request
         item = request.get_json()
-        item["timestamp"] = str(datetime.datetime.now())
+        item["timestamp"] = str(datetime.now())
         item["user_id"] = "1"
         item["price"] = Decimal(item["price"])
         if item["date"] == "":
-            item["date"] = str(datetime.datetime.now())
+            item["date"] = str(datetime.now())
         else:
-            item["date"] = item["date"].replace("T"," ")
+            item["date"] = convert_to_local_time(item["date"])
         print("Uploading item: "+str(item))
         # Write the item to the DynamoDB table
         response = table.put_item(Item=item)
@@ -75,7 +95,7 @@ def get_items():
         & Attr('price').between(min_price, max_price)
     )
     items = r['Items']
-    print(items)
+    print("fetching " + str(len(items)) + " items")
     return jsonify(items)
 
 if __name__ == '__main__':
