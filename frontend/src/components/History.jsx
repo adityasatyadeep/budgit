@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 import { Container, Typography } from '@mui/material';
+import FilterBar from './FilterBar';
 
 const History = ({ filters }) => {
     const [rows, setRows] = useState([]);
@@ -11,13 +12,47 @@ const History = ({ filters }) => {
     const category = filters["category"];
     const min_price = filters["min_price"];
     const max_price = filters["max_price"];
+
+    const [filters2, setFilters2] = useState({
+      categories: [],
+      min_price: 0, 
+      max_price: 100
+    });
   
+    const handleChangeOfFilters = (name, value) => {
+      // const { name, value } = e.target;
+      setFilters2({
+          ...filters2,
+          [name]: value,
+      });
+      console.log(value)
+    };
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      console.log("HELLO" + filters2)
+      try {
+          const response = await axios.get('http://127.0.0.1:5000/getItems', {
+            params: { user_id: userId, 'categories': filters2["categories"].join(), min_price: filters2["min_price"], max_price: filters2["max_price"]},
+          });
+          const dataWithIds = response.data.map((item, index) => ({
+            ...item,
+            id: item.id || index,
+          }));
+          console.log(dataWithIds)
+  
+          setRows(dataWithIds);
+          setLoading(false);
+      } catch (error) {
+          console.error('There was an error!', error);
+      };
+    }
   
     useEffect(() => {
       const fetchData = async () => {
         try {
           const response = await axios.get(`http://127.0.0.1:5000/getItems`, {
-            params: { user_id: userId, category: category, min_price: min_price, max_price: max_price},
+            params: { user_id: userId, categories: filters2["categories"].join(), min_price: filters2["min_price"], max_price: filters2["max_price"]},
           });
   
           // Ensure each row has a unique 'id' property
@@ -25,6 +60,7 @@ const History = ({ filters }) => {
             ...item,
             id: item.id || index,
           }));
+          console.log(dataWithIds)
   
           setRows(dataWithIds);
           setLoading(false);
@@ -70,6 +106,8 @@ const History = ({ filters }) => {
     };
   
     return (
+      <>
+      <FilterBar onChange={handleChangeOfFilters} onSubmit={handleSubmit}/>
       <Container>
         <Typography variant="h4" gutterBottom>
           History Page
@@ -84,6 +122,8 @@ const History = ({ filters }) => {
           />
         </div>
       </Container>
+      </>
+
     );
 }
 

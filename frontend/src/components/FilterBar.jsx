@@ -1,12 +1,14 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
 import MultipleSelect from './MultipleSelect';
+import SubmitButton from './SubmitButton';
 
-const FilterBar = () => {
+const FilterBar = ( { onChange, onSubmit }) => {
+
   return (
     <div>
         Filter By
-        <MultipleSelect />
+        <MultipleSelect onChange={ onChange } />
 
         <TextField
             hiddenLabel
@@ -15,6 +17,8 @@ const FilterBar = () => {
             variant="filled"
             size="small"
         />
+
+        <SubmitButton onSubmit={onSubmit}/>
 
     </div>
   )

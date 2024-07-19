@@ -1,37 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-// const FormRow = ({ txt, onChange}) => {
-
-//     const [formData, setFormData] = useState({
-//         category: '',
-//         description: '',
-//         price: '',
-//         });
-
-//         const handleChange = (e) => {
-//         const { name, value } = e.target;
-//         setFormData({
-//             ...formData,
-//             [name]: value,
-//         });
-//     };
-
-    
-//     return (
-//         <div>
-//             <label>
-//             {txt}: 
-//             <input
-//                 type="text"
-//                 name="category"
-//                 value={formData.category}
-//                 onChange={onChange}
-//             />
-//             </label>
-//         </div>
-//     )
-// }
-
 const FormRow = ({ label, type, name, value, options, onChange }) => {
   if (type != "select"){  
     return (
