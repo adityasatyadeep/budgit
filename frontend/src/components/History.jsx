@@ -32,7 +32,9 @@ const History = ({ filters }) => {
       e.preventDefault();
       console.log("HELLO" + filters2)
       try {
-          const response = await axios.get('http://127.0.0.1:5000/getItems', filters2);
+          const response = await axios.get('http://127.0.0.1:5000/getItems', {
+            params: { user_id: userId, 'categories': filters2["categories"].join(), min_price: filters2["min_price"], max_price: filters2["max_price"]},
+          });
           console.log(response.data);
       } catch (error) {
           console.error('There was an error!', error);
@@ -43,7 +45,7 @@ const History = ({ filters }) => {
       const fetchData = async () => {
         try {
           const response = await axios.get(`http://127.0.0.1:5000/getItems`, {
-            params: { user_id: userId, categories: filters2["categories"], min_price: filters2["min_price"], max_price: filters2["max_price"]},
+            params: { user_id: userId, categories: filters2["categories"].join(), min_price: filters2["min_price"], max_price: filters2["max_price"]},
           });
   
           // Ensure each row has a unique 'id' property
