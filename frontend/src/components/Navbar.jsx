@@ -31,6 +31,12 @@ const Navbar = () => {
                                 >
                                     History
                                 </NavLink>
+                                <NavLink
+                                    to="/calendar"
+                                    className={linkClass}
+                                >
+                                    Calendar
+                                </NavLink>
                             </div>
                         </div>
                     </div>

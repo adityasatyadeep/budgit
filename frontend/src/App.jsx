@@ -12,6 +12,7 @@ import MainLayout from './layouts/MainLayout';
 import BudgetPage from './pages/BudgetPage';
 import FormPage from './pages/FormPage';
 import HistoryPage from './pages/HistoryPage';
+import CalendarPage from './pages/CalendarPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,6 +20,8 @@ const router = createBrowserRouter(
       <Route index element={<BudgetPage />} />
       <Route path='/form' element={<FormPage />} />
       <Route path='/history' element={<HistoryPage />} />
+      <Route path='/calendar' element={<CalendarPage />} />
+
 
       {/* <Route path='*' element={<NotFoundPage />} /> */}
     </Route>
