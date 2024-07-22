@@ -4,15 +4,17 @@ import axios from 'axios';
 import { Container, Typography } from '@mui/material';
 import FilterBar from './FilterBar';
 
-const History = ({ filters }) => {
+const History = () => {
     const [rows, setRows] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [priceRange,setPriceRange] = useState([0,100]);
+
     const userId = 1; // Replace with the actual user ID you want to use
 
     const [filters2, setFilters2] = useState({
       categories: ['Food', 'Drinks', 'Gas', 'Recreation', 'Groceries', 'Gifts', 'Technology', 'Rent', 'Miscellaneous'],
       min_price: 0, 
-      max_price: 5000
+      max_price: 20
     });
 
     const dateOptions = { 
@@ -23,30 +25,35 @@ const History = ({ filters }) => {
       minute: '2-digit', 
       hour12: true 
     };
-    
-  
+
+    const handlePriceRange = (range) => {
+      setPriceRange(range);
+      console.log("newValue", range);
+    }
     const handleChangeOfFilters = (name, value) => {
       // const { name, value } = e.target;
       setFilters2({
           ...filters2,
           [name]: value,
       });
-      console.log(value)
+      console.log(name, value)
     };
 
     const fetchData = async () => {
       try {
+        // let sortRange = priceRange.sort();
+        console.log({categories: filters2["categories"].join(), min_price: priceRange[0], max_price: priceRange[1] })
+        
         const response = await axios.get(`http://127.0.0.1:5000/getItems`, {
-          params: { user_id: userId, categories: filters2["categories"].join(), min_price: filters2["min_price"], max_price: filters2["max_price"]},
+          params: { user_id: userId, categories: filters2["categories"].join(), min_price: priceRange[0], max_price: priceRange[1]},
         });
 
         // Ensure each row has a unique 'id' property
         const dataWithIds = response.data.map((item, index) => ({
           ...item,
-          formattedDate: new Date(item.timestamp).toLocaleString('en-US', dateOptions),
+          formattedDate: new Date(item.date).toLocaleString('en-US', dateOptions),
           id: item.id || index,
         }));
-        console.log("DATA:", dataWithIds)
 
         setRows(dataWithIds);
         setLoading(false);
@@ -68,7 +75,7 @@ const History = ({ filters }) => {
       { 
         field: 'formattedDate',
         headerName: 'Date',
-        width: 150, 
+        width: 200, 
       },
       { field: 'category', headerName: 'Category', width: 150 },
       { field: 'description', headerName: 'Description', width: 150 },
@@ -99,7 +106,7 @@ const History = ({ filters }) => {
   
     return (
       <>
-      <FilterBar onChange={handleChangeOfFilters} onSubmit={handleSubmit}/>
+      <FilterBar onChange={handleChangeOfFilters} handlePriceRange={handlePriceRange} onSubmit={handleSubmit}/>
       <Container>
         <Typography variant="h4" gutterBottom>
           My transactions
