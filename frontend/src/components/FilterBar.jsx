@@ -19,7 +19,7 @@ const FilterBar = ( { onChange, onSubmit, handlePriceRange}) => {
             size="small"
         />
 
-        <RangeSlider onChange = {handlePriceRange} />
+        <RangeSlider onChange = {handlePriceRange} maximum = {500} />
         <SubmitButton onSubmit = {onSubmit} />
 
 

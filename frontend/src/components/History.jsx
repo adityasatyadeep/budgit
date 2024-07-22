@@ -28,6 +28,7 @@ const History = () => {
 
     const handlePriceRange = (range) => {
       setPriceRange(range);
+      console.log("newValue", range);
     }
     const handleChangeOfFilters = (name, value) => {
       // const { name, value } = e.target;
@@ -40,11 +41,11 @@ const History = () => {
 
     const fetchData = async () => {
       try {
-        let sortRange = priceRange.sort();
-        console.log({categories: filters2["categories"].join(), min_price: sortRange[0], max_price: sortRange[1] })
+        // let sortRange = priceRange.sort();
+        console.log({categories: filters2["categories"].join(), min_price: priceRange[0], max_price: priceRange[1] })
         
         const response = await axios.get(`http://127.0.0.1:5000/getItems`, {
-          params: { user_id: userId, categories: filters2["categories"].join(), min_price: sortRange[0], max_price: sortRange[1]},
+          params: { user_id: userId, categories: filters2["categories"].join(), min_price: priceRange[0], max_price: priceRange[1]},
         });
 
         // Ensure each row has a unique 'id' property

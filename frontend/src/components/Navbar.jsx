@@ -6,8 +6,8 @@ import { NavLink } from 'react-router-dom';
 const Navbar = () => {
 
     const linkClass = ({ isActive }) => isActive 
-    ? 'text-black bg-pink-300 hover:bg-pink-600 hover:text-white rounded-md px-3 py-2' 
-    : 'text-white bg-black hover:bg-pink-600 hover:text-white rounded-md px-3 py-2';
+    ? 'text-white bg-pink-500 hover:bg-pink-700 hover:text-white rounded-md px-3 py-2' 
+    : 'text-white bg-black hover:bg-pink-300 hover:text-black rounded-md px-3 py-2';
 
     return (
         <nav className="fixed top-0 left-0 right-0 bg-black border-b border-pink-700 z-50">

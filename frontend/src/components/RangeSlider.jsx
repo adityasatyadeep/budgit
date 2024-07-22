@@ -14,10 +14,10 @@ const Input = styled(MuiInput)`
   width: 60px;
 `;
 
-const RangeSlider = ({ onChange }) => {
-  const [value, setValue] = React.useState([0, 100]);
-  const [left, setLeft] = React.useState(0);
-  const [right, setRight] = React.useState(100);
+const RangeSlider = ({ onChange, maximum}) => {
+  const [value, setValue] = React.useState([0, maximum]);
+  const [left, setLeft] = React.useState(value[0]);
+  const [right, setRight] = React.useState(value[1]);
 
   const handleLeft = (event) => {
     setLeft(event.target.value);
@@ -31,22 +31,21 @@ const RangeSlider = ({ onChange }) => {
     setValue(newValue);
     setLeft(newValue[0]);
     setRight(newValue[1]);
-    console.log("newValue", newValue);
     onChange(newValue);
   };
 
-  const handleInput0Change = (event) => {
-    let event2 = {target:{value:[event.target.value, value[1]].sort()}};
-    // handleChange(event2);
-    let newValue = [event.target.value, value[1]].sort();
+  const handleLeftChange = (event) => {
+    let newValue = [Number(event.target.value), value[1]];
+    newValue.sort((a, b) => a - b);
     setLeft(newValue[0]);
     setRight(newValue[1]);
     setValue(newValue);
     onChange(newValue);
   };
 
-  const handleInput1Change = (event) => {
-    let newValue = [value[0], event.target.value].sort();
+  const handleRightChange = (event) => {
+    let newValue = [value[0], Number(event.target.value)];
+    newValue.sort((a, b) => a - b);
     setLeft(newValue[0]);
     setRight(newValue[1]);
     setValue(newValue);
@@ -54,17 +53,17 @@ const RangeSlider = ({ onChange }) => {
   };
 
   return (
-    <Box sx={{ width: 400}}>
+    <Box sx={{ width: 300}}>
       <Stack direction="row" spacing={2}>
         <Input
           value={left}
           size="small"
           onChange={handleLeft}
-          onBlur={handleInput0Change}
+          onBlur={handleLeftChange}
           inputProps={{
               step: 5,
               min: 0,
-              max: 100,
+              max: maximum,
               type: 'number',
               'aria-labelledby': 'input-slider',
           }}
@@ -77,18 +76,30 @@ const RangeSlider = ({ onChange }) => {
           getAriaValueText={valuetext}
           min={0} max={100}
           sx={{
-            color: '#f472b6' 
+            color: '#f472b6',
+            '& .MuiSlider-thumb': {
+                width: 14,
+                height: 14,
+                '&::before': {
+                  boxShadow: 'none',
+                },
+                '&:hover, &.Mui-focusVisible, &.Mui-active': {
+                  width: 19,
+                  height: 19,
+                  boxShadow: '0 0px 0px 7px rgba(244, 114, 182, 0.30)'
+                }
+            }
           }}
         />
         <Input
             value={right}
             size="small"
             onChange={handleRight}
-            onBlur={handleInput1Change}
+            onBlur={handleRightChange}
             inputProps={{
                 step: 5,
                 min: 0,
-                max: 100,
+                max: maximum,
                 type: 'number',
                 'aria-labelledby': 'input-slider',
             }}
