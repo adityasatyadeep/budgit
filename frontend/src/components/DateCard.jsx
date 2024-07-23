@@ -16,17 +16,17 @@ const DateCard = ({ items, onCardSelect, date }) => {
         onCardSelect(id);
     };
 
-    const categories ={
-        "Food":{ emoji: "🍔", value: "Food" ,color:"#22c55e"},
-        "Drinks":{ emoji: "🥤", value: "Drinks", color:"#0ea5e9" },
-        "Gas":{ emoji: "⛽️", value: "Gas" ,color:"#fcd34d"},
-        "Recreation":{ emoji: "🏀", value: "Recreation" ,color:"#6b21a8"},
-        "Groceries": { emoji: "🥕", value: "Groceries" ,color:"#14b8a6"},
-        "Gifts": { emoji: "🎁", value: "Gifts" ,color:"#dc2626"},
-        "Technology": { emoji: "💻", value: "Technology" ,color:"#334155"},
-        "Rent": { emoji: "🏠", value: "Rent" ,color:"#f472b6"},
-        "Miscellaneous": { emoji: "♾️", value: "Miscellaneous" ,color:"#525252"}
-}
+    const categories = {
+        "Food": { emoji: "🍔", value: "Food", color: "#22c55e" },
+        "Drinks": { emoji: "🥤", value: "Drinks", color: "#0ea5e9" },
+        "Gas": { emoji: "⛽️", value: "Gas", color: "#fcd34d" },
+        "Recreation": { emoji: "🏀", value: "Recreation", color: "#6b21a8" },
+        "Groceries": { emoji: "🥕", value: "Groceries", color: "#14b8a6" },
+        "Gifts": { emoji: "🎁", value: "Gifts", color: "#dc2626" },
+        "Technology": { emoji: "💻", value: "Technology", color: "#334155" },
+        "Rent": { emoji: "🏠", value: "Rent", color: "#f472b6" },
+        "Miscellaneous": { emoji: "♾️", value: "Miscellaneous", color: "#525252" }
+    }
     // return (
     //     <Grid item xs={1}>
     //         <Card
@@ -92,23 +92,24 @@ const DateCard = ({ items, onCardSelect, date }) => {
                             {total()}
                         </Typography>
                     </div>
-                    {items.map((item, index) => (
-                        <React.Fragment key={index}>
-                            <div className=" flex justify-between w-full px-0.5 bg-green-600 rounded-sm my-0.5 align-middle" style = {{background: categories[item.category].color}}>
-                            <   Typography sx={{ fontSize: 10 }} color="#fff">
-                                    {item.date.split(" ")[1].split(":").slice(0, 2).join(":")}
-                                </Typography>
-                                <Typography sx={{ fontSize: 12 }} color="#fff">
-                                    {categories[item.category].emoji}
-                                </Typography>
-                                <Typography sx={{ fontSize: 10 }} color="#fff">
-                                    {item.description}
-                                </Typography>
-                                <Typography sx={{ fontSize: 10 }} color="#fff">
-                                    {total()}
-                                </Typography>
-                            </div>
-                            {/* <CardContent>
+                    <div className=" flex flex-col w-full px-0.5">
+                        {items.map((item, index) => (
+                            <React.Fragment key={index}>
+                                <div className=" flex justify-between w-full px-0.5 bg-green-600 rounded-sm my-0.5 align-middle" style={{ background: categories[item.category].color }}>
+                                    <   Typography sx={{ fontSize: 10 }} color="#fff">
+                                        {item.date.split(" ")[1].split(":").slice(0, 2).join(":")}
+                                    </Typography>
+                                    <Typography sx={{ fontSize: 12 }} color="#fff">
+                                        {categories[item.category].emoji}
+                                    </Typography>
+                                    <Typography sx={{ fontSize: 10 }} color="#fff">
+                                        {item.description}
+                                    </Typography>
+                                    <Typography sx={{ fontSize: 10 }} color="#fff">
+                                        ${Number(item.price).toFixed(2)}
+                                    </Typography>
+                                </div>
+                                {/* <CardContent>
                                 <Typography sx={{ fontSize: 10 }} color="text.secondary" gutterBottom>
                                     {item.date}
                                 </Typography>
@@ -123,8 +124,10 @@ const DateCard = ({ items, onCardSelect, date }) => {
                                     <br />
                                 </Typography>
                             </CardContent> */}
-                        </React.Fragment>
-                    ))}
+                            </React.Fragment>
+                        ))}
+                    </div>
+
                 </Card>
 
             </CardActionArea>
