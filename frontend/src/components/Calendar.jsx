@@ -46,7 +46,7 @@ const Calendar = () => {
       const response = await axios.get(`http://127.0.0.1:5000/getCalendarItems`, {
         params: { user_id: "1", min_price: 0, max_price: 100, date_start: date_start, date_end: date_end },
       });
-      console.log(response.data);
+      // console.log(response.data);
   
       // Generate all dates within the range
       const allDates = [];
@@ -62,7 +62,7 @@ const Calendar = () => {
   
       // Populate the dictionary with transactions
       response.data.forEach(item => {
-        console.log(item.date);
+        // console.log(item.date);
         const dateKey = item.date.split(' ')[0]; // Assuming the date is in ISO format
         if (itemsByDay[dateKey]) {
           itemsByDay[dateKey].push(item);
@@ -72,7 +72,7 @@ const Calendar = () => {
   
       console.log(itemsByDay);
       setItemsByDay(itemsByDay);
-      // return itemsByDay; // Return the dictionary
+      return itemsByDay; // Return the dictionary
     } catch (error) {
       console.error('Error fetching data:', error);
       // return {}; // Return an empty object in case of error
@@ -80,13 +80,15 @@ const Calendar = () => {
   };
 
   useEffect(() => {
-    fetchData("2024-07-01","2024-07-31");
-  }, []);
+    const startDateStr = view === 'week' ? "2024-07-01" : "2024-07-01";
+    const endDateStr = view === 'week' ? "2024-07-07" : "2024-07-31";
+    fetchData(startDateStr, endDateStr);
+  }, [view]);
 
   const Views = () => {
     if (view === "week") {
       return (
-        <WeekView itemsByDay={itemsByDay} fetchData={fetchData}/>
+        <MonthView itemsByDay={itemsByDay} fetchData={fetchData}/>
       );
     } else {
       return (
