@@ -3,60 +3,82 @@ import Grid from '@mui/material/Unstable_Grid2';
 import DateCard from './DateCard';
 import SubmitButton from './SubmitButton';
 import axios from 'axios';
+import { Typography } from "@mui/material";
 
 
 const MonthView = ({ itemsByDay }) => {
     const [selected, setSelected] = useState([]);
-    const [total, setTotal] = useState(0);
-
+    const [selectedTotal, setSelectedTotal] = useState(0);
+    const [allSelected, setAllSelected] = useState(true);
 
     const [currentDateRange, setCurrentDateRange] = useState({
         startDate: '2024-07-01',
         endDate: '2024-07-31'
     });
-   
+
+    const getTotal = () => {
+        return Object.values(itemsByDay)
+            .flat()
+            .reduce((total, item) => total + Number(item.price), 0);
+    }
+
 
     const handleCardSelect = (id) => {
         setSelected((prevSelected) => {
+            var new_price = selectedTotal;
+            var newSelected = [];
             if (prevSelected.includes(id)) {
                 // Remove the id from the array
-                const newSelected = prevSelected.filter((selectedId) => selectedId !== id);
+                newSelected = prevSelected.filter((selectedId) => selectedId !== id);
                 console.log(`Removed ${id}:`, newSelected);
 
                 // update total price
-                var new_price = total
                 for (const item of itemsByDay[id]) {
                     new_price -= Number(item.price)
                 }
-                setTotal(new_price)
+                setSelectedTotal(Number(new_price.toFixed(2)))
 
-                return newSelected;
             } else {
                 // Add the id to the array
-                const newSelected = [...prevSelected, id];
+                newSelected = [...prevSelected, id];
                 console.log(`Added ${id}:`, newSelected);
 
                 // update total price
-                var new_price = total
                 for (const item of itemsByDay[id]) {
                     new_price += Number(item.price)
                 }
-                setTotal(new_price)
+                setSelectedTotal(Number(new_price.toFixed(2)))
 
-                return newSelected;
+            };
+            if (newSelected.length == 0) {
+                setAllSelected(true);
+            } else {
+                setAllSelected(false);
             }
+            console.log("SELECTED:", newSelected);
+            console.log("NEW_PRICE:", new_price.toFixed(2));
+            return newSelected;
         },
-            console.log("SELECTED:", selected)
-
         );
     };
 
     return (
         <>
-            <Grid container spacing={2} columns={7}>
+            <Grid container spacing={1} columns={7}>
                 {Object.entries(itemsByDay).map(([date, items], index) => (
-                    <DateCard items={items} onCardSelect={handleCardSelect} key={index} date={date} />
+                    <DateCard items={items} onCardSelect={handleCardSelect} key={index} date={date} allOn={allSelected} />
                 ))}
+                <Grid item xs={2}>
+                    <div className=" flex flex-col justify-evenly h-full px-0.5">
+                        <Typography sx={{ fontSize: 30 }} color={allSelected ? '#f0abfc' : '#737373'}>
+                            Total: ${getTotal().toFixed(2)}
+                        </Typography>
+                        <Typography sx={{ fontSize: 30 }} color={allSelected ? '#000' : '#f0abfc'}>
+                            Selected: ${selectedTotal.toFixed(2)}
+                        </Typography>
+                    </div>
+                </Grid>
+
             </Grid>
         </>
     );

@@ -7,7 +7,7 @@ import SubmitButton from '../components/SubmitButton';
 import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
 import axios from 'axios';
 
-const DateCard = ({ items, onCardSelect, date }) => {
+const DateCard = ({ items, onCardSelect, date, allOn}) => {
     const [isSelected, setIsSelected] = useState(false);
 
     const handleClick = (id) => {
@@ -76,7 +76,7 @@ const DateCard = ({ items, onCardSelect, date }) => {
                 <Card
                     sx={{
                         backgroundColor: '#262626', // Charcoal color when not selected
-                        outline: isSelected ? '4px solid #f0abfc' : '4px solid transparent',
+                        outline: isSelected ? '3px solid #f0abfc' : '4px solid transparent',
                         aspectRatio: '1 / 1',
                         display: 'flex', // To ensure child elements are centered
                         flexDirection: 'column',
@@ -85,27 +85,29 @@ const DateCard = ({ items, onCardSelect, date }) => {
                     }}
                 >
                     <div className=" flex justify-between w-full px-1 pt-0.5">
-                        <Typography sx={{ fontSize: 15 }} color="#fff">
+                        <Typography sx={{ fontSize: 15 }} color={allOn ? '#fff' : (isSelected ? "#fff" : '#737373')}>
                             {date.split("-")[2]}
                         </Typography>
-                        <Typography sx={{ fontSize: 20 }} color="#f0abfc">
+                        <Typography sx={{ fontSize: 20 }} color={allOn ? '#f0abfc' : (isSelected ? "#f0abfc" : '#525252')} >
                             {total()}
                         </Typography>
                     </div>
                     <div className=" flex flex-col w-full px-0.5">
                         {items.map((item, index) => (
                             <React.Fragment key={index}>
-                                <div className=" flex justify-between w-full px-0.5 bg-green-600 rounded-sm my-0.5 align-middle" style={{ background: categories[item.category].color }}>
-                                    <   Typography sx={{ fontSize: 10 }} color="#fff">
+                                <div className=" flex justify-between w-full px-0.5 rounded-sm my-0.5 align-middle" style={{ 
+                        background: allOn ? categories[item.category].color : (isSelected ? categories[item.category].color : "#404040")
+                    }}>
+                                    <   Typography sx={{ fontSize: 10 }} color={allOn ? '#fff' : (isSelected ? "#fff" : '#737373')}>
                                         {item.date.split(" ")[1].split(":").slice(0, 2).join(":")}
                                     </Typography>
                                     <Typography sx={{ fontSize: 12 }} color="#fff">
                                         {categories[item.category].emoji}
                                     </Typography>
-                                    <Typography sx={{ fontSize: 10 }} color="#fff">
+                                    <Typography sx={{ fontSize: 10 }} color={allOn ? '#fff' : (isSelected ? "#fff" : '#737373')}>
                                         {item.description}
                                     </Typography>
-                                    <Typography sx={{ fontSize: 10 }} color="#fff">
+                                    <Typography sx={{ fontSize: 10 }} color={allOn ? '#fff' : (isSelected ? "#fff" : '#737373')}>
                                         ${Number(item.price).toFixed(2)}
                                     </Typography>
                                 </div>
