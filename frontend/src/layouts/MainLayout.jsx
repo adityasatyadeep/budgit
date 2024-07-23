@@ -6,7 +6,7 @@ const MainLayout = () => {
     return (
         <>
             <Navbar />
-            <div className="mt-20"> {/* Add top margin here */}
+            <div className="mt-20 w-full"> {/* Add top margin here */}
                 <Outlet />
             </div>
         </>

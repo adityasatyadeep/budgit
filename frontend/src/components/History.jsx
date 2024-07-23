@@ -105,7 +105,7 @@ const History = () => {
     };
   
     return (
-      <>
+      <div className='bg-white'>
       <FilterBar onChange={handleChangeOfFilters} handlePriceRange={handlePriceRange} onSubmit={handleSubmit}/>
       <Container>
         <Typography variant="h4" gutterBottom>
@@ -121,7 +121,7 @@ const History = () => {
           />
         </div>
       </Container>
-      </>
+      </div>
 
     );
 }
