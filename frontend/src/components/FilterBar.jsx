@@ -11,13 +11,13 @@ const FilterBar = ( { onChange, onSubmit, handlePriceRange}) => {
         Filter By
         <MultipleSelect onChange={ onChange } />
         
-        <TextField
+        {/* <TextField
             hiddenLabel
             id="filled-hidden-label-small"
             defaultValue="price"
             variant="filled"
             size="small"
-        />
+        /> */}
 
         <RangeSlider onChange = {handlePriceRange} maximum = {500} />
         <SubmitButton onSubmit = {onSubmit} />

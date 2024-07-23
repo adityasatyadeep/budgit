@@ -7,7 +7,7 @@ import SubmitButton from '../components/SubmitButton';
 
 
 
-const MonthView = () => {
+const MonthView = ({itemsByDay,fetchData}) => {
 
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: '#292524',
