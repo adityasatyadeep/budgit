@@ -15,13 +15,12 @@ const MonthView = ({ itemsByDay }) => {
 
     const handleCardSelect = (id) => {
         setSelected(selected => [...selected, id]);
-        console.log(selected);
     };
 
     return (
         <Grid container spacing={2} columns={7}>
             {Object.entries(itemsByDay).map(([date, items],index) => (
-                <DateCard items={items} onCardSelect={handleCardSelect} key={date} date={date}/>
+                <DateCard items={items} onCardSelect={handleCardSelect} key={index} date={date}/>
             ))}
         </Grid>
     );

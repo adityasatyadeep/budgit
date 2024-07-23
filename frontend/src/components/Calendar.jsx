@@ -44,7 +44,7 @@ const Calendar = () => {
   
       // Fetch data from the server
       const response = await axios.get(`http://127.0.0.1:5000/getCalendarItems`, {
-        params: { user_id: "1", min_price: 0, max_price: 100, date_start: date_start, date_end: date_end },
+        params: { user_id: "1", min_price: 0, max_price: 600, date_start: date_start, date_end: date_end },
       });
       // console.log(response.data);
   
