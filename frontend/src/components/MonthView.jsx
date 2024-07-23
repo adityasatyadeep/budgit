@@ -70,10 +70,10 @@ const MonthView = ({ itemsByDay }) => {
                 ))}
                 <Grid item xs={2}>
                     <div className=" flex flex-col justify-evenly h-full px-0.5">
-                        <Typography sx={{ fontSize: 30 }} color={allSelected ? '#f0abfc' : '#737373'}>
+                        <Typography variant="h1" sx={{ fontSize: 30 }} color={allSelected ? '#f0abfc' : '#737373'}>
                             Total: ${getTotal().toFixed(2)}
                         </Typography>
-                        <Typography sx={{ fontSize: 30 }} color={allSelected ? '#000' : '#f0abfc'}>
+                        <Typography variant="h1" sx={{ fontSize: 30 }} color={allSelected ? '#000' : '#f0abfc'}>
                             Selected: ${selectedTotal.toFixed(2)}
                         </Typography>
                     </div>
