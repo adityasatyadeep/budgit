@@ -1,31 +1,46 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import SubmitButton from '../components/SubmitButton';
-
+import { Card, CardContent, Typography } from "@mui/material";
+import axios from 'axios';
 
 
 const WeekView = ({itemsByDay,fetchData}) => {
 
-    const Item = styled(Paper)(({ theme }) => ({
-        backgroundColor: '#292524',
-        ...theme.typography.body2,
-        padding: theme.spacing(1),
-        textAlign: 'center',
-        color: '#e7e5e4',
+    const data = Array.from(Array(7)).map((_, index) => ({
+      [index]: index,
     }));
+    
+    const data2 = JSON.stringify(data)
 
-
-    return (
-        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-            {Array.from(Array(7)).map((_, index) => (
-                <Grid xs={2} sm={4} md={4} key={index}>
-                    <Item>{index}</Item>
-                </Grid>
-            ))}
-        </Grid>
+  return (
+    <Grid container spacing={2} columns={7}>
+        {data.map((_, index) => (
+            <Grid xs={1} key={index}>
+                <Card>
+                    <CardContent>
+                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                        Word of the Day
+                        </Typography>
+                        <Typography variant="h5" component="div">
+                        {index}
+                        </Typography>
+                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                        adjective
+                        </Typography>
+                        <Typography variant="body2">
+                        well meaning and kindly.
+                        <br />
+                        {'"a benevolent smile"'}
+                        </Typography>
+                    </CardContent>{index} 
+                </Card>
+            </Grid>
+        ))}
+    </Grid>
 
 
     )
