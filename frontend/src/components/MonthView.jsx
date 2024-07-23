@@ -14,8 +14,21 @@ const MonthView = ({ itemsByDay }) => {
     // }, [currentDateRange, fetchData]);
 
     const handleCardSelect = (id) => {
-        setSelected(selected => [...selected, id]);
+        setSelected((prevSelected) => {
+            if (prevSelected.includes(id)) {
+                // Remove the id from the array
+                const newSelected = prevSelected.filter((selectedId) => selectedId !== id);
+                console.log(`Removed ${id}:`, newSelected);
+                return newSelected;
+            } else {
+                // Add the id to the array
+                const newSelected = [...prevSelected, id];
+                console.log(`Added ${id}:`, newSelected);
+                return newSelected;
+            }
+        });
     };
+    
 
     return (
         <Grid container spacing={2} columns={7}>

@@ -11,7 +11,7 @@ const DateCard = ({ items, onCardSelect, date }) => {
     const [isSelected, setIsSelected] = useState(false);
 
     const handleClick = (id) => {
-        console.log("ID:", id);
+        // console.log("ID:", id);
         setIsSelected(!isSelected);
         onCardSelect(id);
     };
@@ -84,7 +84,7 @@ const DateCard = ({ items, onCardSelect, date }) => {
                         alignItems: 'flex-start'
                     }}
                 >
-                    <div className=" flex justify-between w-full px-1">
+                    <div className=" flex justify-between w-full px-1 pt-0.5">
                         <Typography sx={{ fontSize: 15 }} color="#fff">
                             {date.split("-")[2]}
                         </Typography>
@@ -94,7 +94,7 @@ const DateCard = ({ items, onCardSelect, date }) => {
                     </div>
                     {items.map((item, index) => (
                         <React.Fragment key={index}>
-                            <div className=" flex justify-between w-full px-1 bg-green-600 rounded-sm my-0.5 align-middle" style = {{background: categories[item.category].color}}>
+                            <div className=" flex justify-between w-full px-0.5 bg-green-600 rounded-sm my-0.5 align-middle" style = {{background: categories[item.category].color}}>
                             <   Typography sx={{ fontSize: 10 }} color="#fff">
                                     {item.date.split(" ")[1].split(":").slice(0, 2).join(":")}
                                 </Typography>
