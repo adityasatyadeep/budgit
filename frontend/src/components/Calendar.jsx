@@ -4,28 +4,57 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import SubmitButton from '../components/SubmitButton';
+import WeekView from "./WeekView";
+import MonthView from "./MonthView";
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 
 
 const Calendar = () => {
+  const [view, setView] = React.useState('week');
 
-    const Item = styled(Paper)(({ theme }) => ({
-        backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-        ...theme.typography.body2,
-        padding: theme.spacing(1),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-      }));
+  const handleAlignment = (event, newAlignment) => {
+    setView(newAlignment);
+  };
+
+  const Views = () => {
+    if (view === "week") {
+      return (
+        <WeekView />
+      );
+    } else {
+      return (
+        <MonthView />
+      );
+    }
+  };
+
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: '#292524',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: '#e7e5e4',
+  }));
+
   return (
-    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-        {Array.from(Array(7)).map((_, index) => (
-            <Grid xs={2} sm={4} md={4} key={index}>
-            <SubmitButton></SubmitButton>
-            </Grid>
-        ))}
-    </Grid>
-
-
+    <>
+      <ToggleButtonGroup
+        value={view}
+        exclusive
+        onChange={handleAlignment}
+        aria-label="text alignment"
+      >
+        <ToggleButton value="week" aria-label="left aligned">
+          <Item>Week</Item>
+        </ToggleButton>
+        <ToggleButton value="month" aria-label="centered">
+          <Item>Month</Item>
+        </ToggleButton>
+      </ToggleButtonGroup>
+      <Views />
+    </>
   )
 }
 
