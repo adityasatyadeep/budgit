@@ -20,8 +20,6 @@ const Calendar = () => {
     setView(newAlignment);
   };
 
-  
-
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#292524',
     ...theme.typography.body2,
@@ -70,7 +68,6 @@ const Calendar = () => {
         }
       });
   
-      console.log(itemsByDay);
       setItemsByDay(itemsByDay);
       return itemsByDay; // Return the dictionary
     } catch (error) {
@@ -79,10 +76,11 @@ const Calendar = () => {
     }
   };
 
+
   useEffect(() => {
     const startDateStr = view === 'week' ? "2024-07-01" : "2024-07-01";
     const endDateStr = view === 'week' ? "2024-07-07" : "2024-07-31";
-    fetchData(startDateStr, endDateStr);
+    const itemsByDay = fetchData(startDateStr, endDateStr);
   }, [view]);
 
   const Views = () => {
