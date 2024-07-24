@@ -110,13 +110,14 @@ const Calendar = () => {
   }, [view,currentDate]);
 
   const Views = () => {
+    let cur = new Date(currentDate)
     if (view === "week") {
       return (
-        <WeekView itemsByDay={itemsByDay} fetchData={fetchData} month={currentDate.split("-")[1]}/>
+        <WeekView itemsByDay={itemsByDay} fetchData={fetchData} />
       );
     } else {
       return (
-        <MonthView itemsByDay={itemsByDay} fetchData={fetchData} month={currentDate.split("-")[1]}/>
+        <MonthView itemsByDay={itemsByDay} fetchData={fetchData} month={cur.getMonth()+1}/>
       );
     }
   };
@@ -126,6 +127,7 @@ const Calendar = () => {
     if (view === "week") {
       cur.setDate(cur.getDate() - 7);
     } else if (view === "month") {
+      cur.setDate(7);
       cur.setMonth(cur.getMonth() - 1);
     }
     console.log("LEFT",cur);
@@ -196,7 +198,7 @@ const Calendar = () => {
           </Typography>
         </ToggleButton>
       </ToggleButtonGroup>
-      <ButtonGroup variant="contained" aria-label="Basic button group">
+      <ButtonGroup color="secondary" variant="contained" aria-label="Basic button group">
         <Button onClick={handleLeftClick}><ChevronLeftIcon/></Button>
         <Button onClick={handleToday}>Today</Button>
         <Button onClick={handleRightClick}><ChevronRightIcon/></Button>

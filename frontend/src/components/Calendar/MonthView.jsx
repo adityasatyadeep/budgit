@@ -91,9 +91,9 @@ const MonthView = ({ itemsByDay, month }) => {
                     </Grid>
                 ))}
                 {Object.entries(itemsByDay).map(([date, items], index) => {
-                    if (date.split("-")[1] !== month) {
+                    if (Number(date.split("-")[1]) !== month) {
                         return (
-                            <Grid item xs={1}>
+                            <Grid item xs={1} key = {date}>
                                 <Card
                                     sx={{
                                         backgroundColor: '#171717', // Charcoal color when not selected
