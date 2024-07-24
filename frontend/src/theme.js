@@ -4,7 +4,7 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   typography: {
     fontFamily: 'Lato',
-    h1: {
+    bold: {
       fontFamily: 'Lato', // "Helvetica Neue"
       fontWeight: 'bold',
       fontSize: 30

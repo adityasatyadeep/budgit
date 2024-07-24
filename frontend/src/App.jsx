@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 import {
-  Route, 
-  createBrowserRouter, 
-  createRoutesFromElements, 
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
   RouterProvider
 } from 'react-router-dom'
+import { ThemeProvider } from '@mui/material/styles';
+import theme from "../src/theme.js"
+
 
 import MainLayout from './layouts/MainLayout';
 import BudgetPage from './pages/BudgetPage';
@@ -16,7 +19,7 @@ import CalendarPage from './pages/CalendarPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<MainLayout />}> 
+    <Route path='/' element={<MainLayout />}>
       <Route index element={<BudgetPage />} />
       <Route path='/form' element={<FormPage />} />
       <Route path='/history' element={<HistoryPage />} />
@@ -30,7 +33,10 @@ const router = createBrowserRouter(
 
 const App = () => {
   return (
-    <RouterProvider router={router} />
+
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   );
 }
 

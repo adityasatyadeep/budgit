@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import SubmitButton from "../components/SubmitButton";
+import SubmitButton from "../SubmitButton";
 import FormRow from "./FormRow";
 import Box from "@mui/material/Box";
 import dayjs from "dayjs";

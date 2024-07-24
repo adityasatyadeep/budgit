@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
 import DateCard from './DateCard';
-import SubmitButton from './SubmitButton';
+import SubmitButton from '../SubmitButton';
 import axios from 'axios';
-import { Typography } from "@mui/material";
-import theme from "../pages/theme.js"
+import { Card, Typography } from "@mui/material";
 
 
-const MonthView = ({ itemsByDay }) => {
+const WeekView = ({ itemsByDay }) => {
     const [selected, setSelected] = useState([]);
     const [selectedTotal, setSelectedTotal] = useState(0);
     const [allSelected, setAllSelected] = useState(true);
@@ -63,21 +62,54 @@ const MonthView = ({ itemsByDay }) => {
         );
     };
 
+
+    //Set Weekday headers
+    const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
     return (
         <>
             <Grid container spacing={1} columns={7}>
+                {weekDays.map((dayName, index) => (
+                    <Grid item xs={1} key={dayName}>
+                        <Card
+                            sx={{
+                                backgroundColor: '#262626', // Charcoal color when not selected
+                                // aspectRatio: '1 / 1'
+                                boxShadow: '2px 2px 2px rgba(240, 171, 252, 0.2)', // Adds a medium box shadow
+                                '&:hover': {
+                                    boxShadow: 'none', // Adds a larger shadow on hover
+                                },
+                            }}>
+
+                            <div className=" flex flex-col justify-center align-middle px-0.5 ">
+                                <Typography variant="bold" sx={{ fontSize: 30 }} color='#737373'>
+                                    {dayName}
+                                </Typography>
+                            </div>
+                        </Card>
+
+                    </Grid>
+                ))}
                 {Object.entries(itemsByDay).map(([date, items], index) => (
                     <DateCard items={items} onCardSelect={handleCardSelect} key={index} date={date} allOn={allSelected} />
                 ))}
                 <Grid item xs={2}>
-                    <div className=" flex flex-col justify-evenly h-full px-0.5">
-                        <Typography variant="h1" color={allSelected ? '#f0abfc' : '#737373'}>
-                            Total: ${getTotal().toFixed(2)}
-                        </Typography>
-                        <Typography variant="h1" sx={{ fontSize: 30 }} color={allSelected ? '#000' : '#f0abfc'}>
-                            Selected: ${selectedTotal.toFixed(2)}
-                        </Typography>
-                    </div>
+                    <Card
+                        sx={{
+                            backgroundColor: '#262626', // Charcoal color when not selected
+                            height: '100%',
+                            boxShadow: '2px 2px 2px rgba(240, 171, 252, 0.2)', // Adds a medium box shadow
+                        }}>
+                        <div className=" flex flex-col justify-evenly h-full px-0.5">
+                            <Typography variant="bold" sx={{ fontSize: 30 }} color={allSelected ? '#f0abfc' : '#737373'}>
+                                Total: ${getTotal().toFixed(2)}
+                            </Typography>
+                            <Typography variant="bold" sx={{ fontSize: 30 }} color={allSelected ? '#737373' : '#f0abfc'}>
+                                Selected: ${selectedTotal.toFixed(2)}
+                            </Typography>
+                        </div>
+                    </Card>
+
                 </Grid>
 
             </Grid>
@@ -85,4 +117,4 @@ const MonthView = ({ itemsByDay }) => {
     );
 };
 
-export default MonthView;
+export default WeekView;
