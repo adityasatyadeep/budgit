@@ -4,6 +4,7 @@ import DateCard from './DateCard';
 import SubmitButton from './SubmitButton';
 import axios from 'axios';
 import { Typography } from "@mui/material";
+import theme from "../pages/theme.js"
 
 
 const MonthView = ({ itemsByDay }) => {
@@ -70,7 +71,7 @@ const MonthView = ({ itemsByDay }) => {
                 ))}
                 <Grid item xs={2}>
                     <div className=" flex flex-col justify-evenly h-full px-0.5">
-                        <Typography variant="h1" sx={{ fontSize: 30 }} color={allSelected ? '#f0abfc' : '#737373'}>
+                        <Typography variant="h1" color={allSelected ? '#f0abfc' : '#737373'}>
                             Total: ${getTotal().toFixed(2)}
                         </Typography>
                         <Typography variant="h1" sx={{ fontSize: 30 }} color={allSelected ? '#000' : '#f0abfc'}>

@@ -1,9 +1,7 @@
 import React from 'react'
 import Calendar from '../components/Calendar';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from './theme';
-
-
+import theme from "../pages/theme.js"
 
 const CalendarPage = () => {
 

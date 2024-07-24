@@ -9,7 +9,7 @@ import WeekView from "./WeekView";
 import MonthView from "./MonthView";
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-
+import theme from '../pages/theme';
 
 
 const Calendar = () => {
