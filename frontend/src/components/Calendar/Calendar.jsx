@@ -88,7 +88,7 @@ const Calendar = () => {
     let endDate = new Date(currentDate);
     if (view === "month") {
       startDate.setDate(0);
-      const bufferBeginning = startDate.getDay() + 1;
+      const bufferBeginning = (startDate.getDay() + 1)%7;
       startDate.setDate(startDate.getDate() - bufferBeginning);
 
       endDate.setMonth(endDate.getMonth() + 1);
