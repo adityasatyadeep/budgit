@@ -23,6 +23,7 @@ import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
+import SubmitButton from '../SubmitButton';
 
 const DayModal = ({ open, handleClose, allOn, isSelected, onClick, items }) => {
     const [fullWidth, setFullWidth] = React.useState(true);
@@ -94,20 +95,22 @@ const DayModal = ({ open, handleClose, allOn, isSelected, onClick, items }) => {
             >
                 <DialogTitle>$$$</DialogTitle>
                 <DialogContent>
-                <Timeline position="right">
-                    {timelineItems.map((item, index) => (
-                        <TimelineItem key={index}>
-                            <TimelineOppositeContent color="text.secondary">
-                                {item.time}
-                            </TimelineOppositeContent>
-                            <TimelineSeparator>
-                                <TimelineDot />
-                                {index < timelineItems.length - 1 && <TimelineConnector />}
-                            </TimelineSeparator>
-                            <TimelineContent>{item.content}</TimelineContent>
-                        </TimelineItem>
-                    ))}
-                </Timeline>
+                    <Timeline position="right">
+                        {items.map((item, index) => (
+                            console.log("ITEM", item),
+                            d.toISOString = item["date"],
+                            <TimelineItem key={index}>
+                                <TimelineOppositeContent color="pink">
+                                    {d}
+                                </TimelineOppositeContent>
+                                <TimelineSeparator>
+                                    <TimelineDot />
+                                    {index < timelineItems.length - 1 && <TimelineConnector />}
+                                </TimelineSeparator>
+                                <TimelineContent>{item["description"]}, ${item["price"]}</TimelineContent>
+                            </TimelineItem>
+                        ))}
+                    </Timeline>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} sx={{
