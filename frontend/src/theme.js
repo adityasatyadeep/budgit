@@ -10,7 +10,7 @@ const theme = createTheme({
       fontSize: 30
     },
     body1: {
-      fontFamily: 'Open Sans, sans-serif',
+      fontFamily: 'Lato',
     },
   },
 });

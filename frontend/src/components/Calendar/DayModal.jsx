@@ -25,7 +25,7 @@ import TimelineDot from '@mui/lab/TimelineDot';
 import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 import SubmitButton from '../SubmitButton';
 
-const DayModal = ({ open, handleClose, allOn, isSelected, onClick, items }) => {
+const DayModal = ({ open, handleClose, allOn, isSelected, onClick, items, categories }) => {
     const [fullWidth, setFullWidth] = React.useState(true);
     const [maxWidth, setMaxWidth] = React.useState('sm');
 
@@ -104,10 +104,10 @@ const DayModal = ({ open, handleClose, allOn, isSelected, onClick, items }) => {
                                     {/* split(":").slice(0, 2)} */}
                                 </TimelineOppositeContent>
                                 <TimelineSeparator>
-                                    <TimelineDot />
+                                    <span style={{ fontSize: '1.3rem' }}>{categories[item["category"]].emoji}</span>
                                     {index < items.length - 1 && <TimelineConnector />}
                                 </TimelineSeparator>
-                                <TimelineContent>{item["description"]}, ${item["price"]}</TimelineContent>
+                                <TimelineContent>{item["description"]}, ${parseFloat(item["price"]).toFixed(2)}</TimelineContent>
                             </TimelineItem>
                         ))}
                     </Timeline>

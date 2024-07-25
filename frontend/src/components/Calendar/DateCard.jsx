@@ -154,6 +154,7 @@ const DateCard = ({ items, onCardSelect, date, allOn }) => {
                     isSelected={isSelected} 
                     onClick={() => handleClick(date)}
                     items={items} 
+                    categories={categories}
                     />
             </Card>
 
