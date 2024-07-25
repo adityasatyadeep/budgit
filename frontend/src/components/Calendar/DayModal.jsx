@@ -100,11 +100,12 @@ const DayModal = ({ open, handleClose, allOn, isSelected, onClick, items }) => {
                             console.log("ITEM", item),
                             <TimelineItem key={index}>
                                 <TimelineOppositeContent color="pink">
-                                    {item["date"]}
+                                    {item["date"].split(" ")[1].slice(0, 5)}
+                                    {/* split(":").slice(0, 2)} */}
                                 </TimelineOppositeContent>
                                 <TimelineSeparator>
                                     <TimelineDot />
-                                    {index < timelineItems.length - 1 && <TimelineConnector />}
+                                    {index < items.length - 1 && <TimelineConnector />}
                                 </TimelineSeparator>
                                 <TimelineContent>{item["description"]}, ${item["price"]}</TimelineContent>
                             </TimelineItem>
