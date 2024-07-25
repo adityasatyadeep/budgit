@@ -98,7 +98,7 @@ const DayModal = ({ open, handleClose, allOn, isSelected, onClick, items }) => {
                     <Timeline position="right">
                         {items.map((item, index) => (
                             console.log("ITEM", item),
-                            d.toISOString = item["date"],
+                            d = item["date"],
                             <TimelineItem key={index}>
                                 <TimelineOppositeContent color="pink">
                                     {d}
