@@ -5,34 +5,30 @@ import { Pie } from 'react-chartjs-2';
 // Register the components we'll use
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const PieChart = ({ items }) => {
+const PieChart = ({ items, categories }) => {
     const categoryTotals = items.reduce((acc, item) => {
         const category = item.category;
         acc[category] = (acc[category] || 0) + parseFloat(item.price);
         return acc;
     }, {});
 
-    const categories = {
-        "Food": { emoji: "🍔", value: "Food", color: "#22c55e" },
-        "Drinks": { emoji: "🥤", value: "Drinks", color: "#0ea5e9" },
-        "Gas": { emoji: "⛽️", value: "Gas", color: "#fcd34d" },
-        "Recreation": { emoji: "🏀", value: "Recreation", color: "#6b21a8" },
-        "Groceries": { emoji: "🥕", value: "Groceries", color: "#14b8a6" },
-        "Gifts": { emoji: "🎁", value: "Gifts", color: "#dc2626" },
-        "Technology": { emoji: "💻", value: "Technology", color: "#334155" },
-        "Rent": { emoji: "🏠", value: "Rent", color: "#f472b6" },
-        "Miscellaneous": { emoji: "♾️", value: "Miscellaneous", color: "#525252" }
-    }
-
-    console.log("colors, ", Object.keys(categoryTotals).map(key => categories[key].color))
+    
+    const formattedData = Object.keys(categoryTotals).map(category => {
+        const value = categoryTotals[category];
+        return {
+            label: categories[category] ? categories[category].value : category,
+            valuelabel: `$${value.toFixed(2)}`,
+            value: value
+        };
+    });
 
     const data = {
 
 
-        labels: Object.keys(categoryTotals),
+        labels: formattedData.map(item => item.label),
         datasets: [
             {
-                data: Object.values(categoryTotals),
+                data: formattedData.map(item => item.value),
                 backgroundColor: Object.keys(categoryTotals).map(key => categories[key].color),
                 borderColor: [
                     'white',
@@ -52,6 +48,15 @@ const PieChart = ({ items }) => {
                 display: true,
                 text: 'Sample Pie Chart',
             },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        const index = context.dataIndex;
+                        // Return the formatted value from formattedData
+                        return formattedData[index].valuelabel;
+                    }
+                }
+            }
         },
     };
 

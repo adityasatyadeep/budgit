@@ -114,7 +114,7 @@ const DayModal = ({ open, handleClose, allOn, isSelected, onClick, items, catego
                             </Timeline>
                         </Box>
                         <Box sx={{ width: '40%', minWidth: 300 }}>
-                            <PieChart items={items}/>
+                            <PieChart items={items} categories={categories}/>
                         </Box>
                     </Box>
                 </DialogContent>
