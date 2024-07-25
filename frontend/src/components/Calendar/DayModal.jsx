@@ -41,6 +41,23 @@ const DayModal = ({ open, handleClose, allOn, isSelected, onClick, items }) => {
         setFullWidth(event.target.checked);
     };
 
+    const timelineItems = [
+        { time: "09:30 am", content: "Eat" },
+        { time: "10:00 am", content: "Code" },
+        { time: "12:00 am", content: "Sleep" },
+        { time: "9:00 am", content: "Repeat" },
+        { time: "9:00 am", content: "Repeat" },
+        { time: "9:00 am", content: "Repeat" },
+        { time: "9:00 am", content: "Repeat" },
+        { time: "9:00 am", content: "Repeat" },
+        { time: "9:00 am", content: "Repeat" },
+        { time: "9:00 am", content: "Repeat" },
+        { time: "9:00 am", content: "Repeat" },
+        { time: "9:00 am", content: "Repeat" },
+        { time: "9:00 am", content: "Repeat" },
+        { time: "9:00 am", content: "Repeat" }
+    ];
+
     return (
         <React.Fragment>
             <Button
@@ -77,48 +94,20 @@ const DayModal = ({ open, handleClose, allOn, isSelected, onClick, items }) => {
             >
                 <DialogTitle>$$$</DialogTitle>
                 <DialogContent>
-                    <Timeline position="alternate">
-                        <TimelineItem>
+                <Timeline position="right">
+                    {timelineItems.map((item, index) => (
+                        <TimelineItem key={index}>
                             <TimelineOppositeContent color="text.secondary">
-                                09:30 am
+                                {item.time}
                             </TimelineOppositeContent>
                             <TimelineSeparator>
                                 <TimelineDot />
-                                <TimelineConnector />
+                                {index < timelineItems.length - 1 && <TimelineConnector />}
                             </TimelineSeparator>
-                            <TimelineContent>Eat</TimelineContent>
+                            <TimelineContent>{item.content}</TimelineContent>
                         </TimelineItem>
-                        <TimelineItem>
-                            <TimelineOppositeContent color="text.secondary">
-                                10:00 am
-                            </TimelineOppositeContent>
-                            <TimelineSeparator>
-                                <TimelineDot />
-                                <TimelineConnector />
-                            </TimelineSeparator>
-                            <TimelineContent>Code</TimelineContent>
-                        </TimelineItem>
-                        <TimelineItem>
-                            <TimelineOppositeContent color="text.secondary">
-                                12:00 am
-                            </TimelineOppositeContent>
-                            <TimelineSeparator>
-                                <TimelineDot />
-                                <TimelineConnector />
-                            </TimelineSeparator>
-                            <TimelineContent>Sleep</TimelineContent>
-                        </TimelineItem>
-                        <TimelineItem>
-                            <TimelineOppositeContent color="text.secondary">
-                                9:00 am
-                            </TimelineOppositeContent>
-                            <TimelineSeparator>
-                                <TimelineDot />
-                                <TimelineConnector />
-                            </TimelineSeparator>
-                            <TimelineContent>Repeat</TimelineContent>
-                        </TimelineItem>
-                    </Timeline>
+                    ))}
+                </Timeline>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} sx={{
