@@ -24,6 +24,7 @@ import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 import SubmitButton from '../SubmitButton';
+import PieChart from './PieChart';
 
 const DayModal = ({ open, handleClose, allOn, isSelected, onClick, items, categories }) => {
     const [fullWidth, setFullWidth] = React.useState(true);
@@ -95,22 +96,27 @@ const DayModal = ({ open, handleClose, allOn, isSelected, onClick, items, catego
             >
                 <DialogTitle>$$$</DialogTitle>
                 <DialogContent>
-                    <Timeline position="right">
-                        {items.map((item, index) => (
-                            console.log("ITEM", item),
-                            <TimelineItem key={index}>
-                                <TimelineOppositeContent color="pink">
-                                    {item["date"].split(" ")[1].slice(0, 5)}
-                                    {/* split(":").slice(0, 2)} */}
-                                </TimelineOppositeContent>
-                                <TimelineSeparator>
-                                    <span style={{ fontSize: '1.3rem' }}>{categories[item["category"]].emoji}</span>
-                                    {index < items.length - 1 && <TimelineConnector />}
-                                </TimelineSeparator>
-                                <TimelineContent>{item["description"]}, ${parseFloat(item["price"]).toFixed(2)}</TimelineContent>
-                            </TimelineItem>
-                        ))}
-                    </Timeline>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Box sx={{ flexGrow: 1, marginRight: 2 }}>
+                            <Timeline position="right">
+                                {items.map((item, index) => (
+                                    <TimelineItem key={index}>
+                                        <TimelineOppositeContent color="pink">
+                                            {item["date"].split(" ")[1].slice(0, 5)}
+                                        </TimelineOppositeContent>
+                                        <TimelineSeparator>
+                                            <span style={{ fontSize: '1.3rem' }}>{categories[item["category"]].emoji}</span>
+                                            {index < items.length - 1 && <TimelineConnector />}
+                                        </TimelineSeparator>
+                                        <TimelineContent>{item["description"]}, ${parseFloat(item["price"]).toFixed(2)}</TimelineContent>
+                                    </TimelineItem>
+                                ))}
+                            </Timeline>
+                        </Box>
+                        <Box sx={{ width: '40%', minWidth: 300 }}>
+                            <PieChart items={items}/>
+                        </Box>
+                    </Box>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} sx={{
@@ -120,6 +126,7 @@ const DayModal = ({ open, handleClose, allOn, isSelected, onClick, items, catego
                     }}><CloseRoundedIcon /></Button>
                 </DialogActions>
             </Dialog>
+
 
         </React.Fragment>
     );
