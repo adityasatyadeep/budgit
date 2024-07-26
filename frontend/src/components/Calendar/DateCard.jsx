@@ -23,13 +23,13 @@ const DateCard = ({ items, onCardSelect, date, allOn }) => {
 
 
     const categories = {
-        "Food": { emoji: "🍔", value: "Food", color: "#22c55e" },
-        "Drinks": { emoji: "🥤", value: "Drinks", color: "#0ea5e9" },
+        "Food": { emoji: "🍔", value: "Food", color: "#f52020" },
+        "Drinks": { emoji: "🥤", value: "Drinks", color: "#0088ff" },
         "Gas": { emoji: "⛽️", value: "Gas", color: "#fcd34d" },
         "Recreation": { emoji: "🏀", value: "Recreation", color: "#6b21a8" },
-        "Groceries": { emoji: "🥕", value: "Groceries", color: "#14b8a6" },
-        "Gifts": { emoji: "🎁", value: "Gifts", color: "#dc2626" },
-        "Technology": { emoji: "💻", value: "Technology", color: "#334155" },
+        "Groceries": { emoji: "🥕", value: "Groceries", color: "#23b502" },
+        "Gifts": { emoji: "🎁", value: "Gifts", color: "#db69d2" },
+        "Technology": { emoji: "💻", value: "Technology", color: "#14b8a6" },
         "Rent": { emoji: "🏠", value: "Rent", color: "#f472b6" },
         "Miscellaneous": { emoji: "♾️", value: "Miscellaneous", color: "#525252" }
     }

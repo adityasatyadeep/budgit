@@ -43,22 +43,7 @@ const DayModal = ({ open, handleClose, allOn, isSelected, onClick, items, catego
         setFullWidth(event.target.checked);
     };
 
-    const timelineItems = [
-        { time: "09:30 am", content: "Eat" },
-        { time: "10:00 am", content: "Code" },
-        { time: "12:00 am", content: "Sleep" },
-        { time: "9:00 am", content: "Repeat" },
-        { time: "9:00 am", content: "Repeat" },
-        { time: "9:00 am", content: "Repeat" },
-        { time: "9:00 am", content: "Repeat" },
-        { time: "9:00 am", content: "Repeat" },
-        { time: "9:00 am", content: "Repeat" },
-        { time: "9:00 am", content: "Repeat" },
-        { time: "9:00 am", content: "Repeat" },
-        { time: "9:00 am", content: "Repeat" },
-        { time: "9:00 am", content: "Repeat" },
-        { time: "9:00 am", content: "Repeat" }
-    ];
+   
 
     return (
         <React.Fragment>
@@ -113,7 +98,7 @@ const DayModal = ({ open, handleClose, allOn, isSelected, onClick, items, catego
                                 ))}
                             </Timeline>
                         </Box>
-                        <Box sx={{ width: '40%', minWidth: 300 }}>
+                        <Box sx={{ width: '40%'}}>
                             <PieChart items={items} categories={categories}/>
                         </Box>
                     </Box>
