@@ -11,6 +11,7 @@ const theme = createTheme({
     },
     body1: {
       fontFamily: 'Lato',
+      fontSize: 18
     },
     priceModal: {
       fontFamily: 'Lato',

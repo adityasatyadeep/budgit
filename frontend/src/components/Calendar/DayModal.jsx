@@ -95,7 +95,7 @@ const DayModal = ({ open, handleClose, allOn, isSelected, onClick, items, catego
                                             {item["date"].split(" ")[1].slice(0, 5)}
                                         </TimelineOppositeContent>
                                         <TimelineSeparator>
-                                            <span style={{ fontSize: '1.3rem' }}>{categories[item["category"]].emoji}</span>
+                                            <span style={{ fontSize: '1.9rem' }}>{categories[item["category"]].emoji}</span>
                                             {index < items.length - 1 && <TimelineConnector />}
                                         </TimelineSeparator>
                                         <TimelineContent>
@@ -109,7 +109,18 @@ const DayModal = ({ open, handleClose, allOn, isSelected, onClick, items, catego
                                                 fontSize: '1rem',
                                                 fontWeight: 'bold'
                                             }}>
-                                                <Box component="span" sx={{ flex: 1 }}>{item["description"]}</Box>
+                                                <Box component="span" sx={{ flex: 1 }}>
+                                                    <Typography
+                                                        variant='body1'
+                                                        sx={{
+                                                            color: '#fdf4ff',
+                                                            marginLeft: '10px',
+                                                            textShadow: '0px 0px 10px #4A044E'
+                                                        }}
+                                                    >
+                                                        {item.description}
+                                                    </Typography>
+                                                </Box>
                                                 <Box component="span" sx={{ color: '#f0abfc', marginLeft: '10px', fontWeight: 'bold' }}>
                                                     <Typography
                                                         variant="priceModal"
