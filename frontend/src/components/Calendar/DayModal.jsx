@@ -101,7 +101,7 @@ const DayModal = ({ open, handleClose, allOn, isSelected, onClick, items, catego
                                         <TimelineContent>
                                             <Box sx={{
                                                 backgroundColor: categories[item["category"]].color,
-                                                padding: '0.2rem 0.5rem',
+                                                padding: '0rem 0.5rem',
                                                 borderRadius: '5px',
                                                 display: 'flex',
                                                 justifyContent: 'space-between',
@@ -114,7 +114,6 @@ const DayModal = ({ open, handleClose, allOn, isSelected, onClick, items, catego
                                                         variant='body1'
                                                         sx={{
                                                             color: '#fdf4ff',
-                                                            marginLeft: '10px',
                                                             textShadow: '0px 0px 10px #4A044E'
                                                         }}
                                                     >
