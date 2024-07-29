@@ -85,8 +85,6 @@ def get_items():
     categories = request.args.get('categories',type=str).split(",")
     min_price = request.args.get('min_price', type=Decimal)
     max_price = request.args.get('max_price', type=Decimal)
-    print("user_id:", user_id)
-    print("Catergories:", categories)
 
     r = table.scan(
         FilterExpression=
@@ -97,6 +95,66 @@ def get_items():
     items = r['Items']
     print("fetching " + str(len(items)) + " items")
     return jsonify(items)
+
+@app.route('/getCalendarItems', methods=['GET'])
+def get_calendar_items():
+    # filters = request.get_json()
+    # print(filters)
+    if False:
+        user_id = 1
+        categories = ["Food"]
+        min_price = 0
+        max_price = 100
+        date_start = "2024-07"
+    else:
+        user_id = request.args.get('user_id', type=int)
+        # categories = request.args.get('categories',type=str).split(",")
+        min_price = request.args.get('min_price', type=Decimal)
+        max_price = request.args.get('max_price', type=Decimal)
+        date_start = request.args.get('date_start', type=str)
+        date_end = request.args.get('date_end', type=str)
+    print("user_id:", user_id)
+    # print("Catergories:", categories)
+
+    r = table.scan(
+        FilterExpression=
+        Attr('user_id').eq(str(user_id))
+        # & Attr('category').is_in(categories)
+        & Attr('price').between(min_price, max_price)
+        & Attr('date').between(date_start,date_end)
+    )
+    items = r['Items']
+    print("fetching " + str(len(items)) + " items")
+    return jsonify(items)
+
+    
+def get_items_on_days(user_id, dates):
+    items = []
+    for date in dates:
+        r = table.scan(
+            FilterExpression=
+            Attr('user_id').eq(str(user_id))
+            & Attr('date').begins_with(date)
+        )
+        items += r['Items']
+
+    print("fetching " + str(len(items)) + " items")
+    return items
+
+@app.route('/getTotalOnDays', methods=['GET'])
+def get_total_on_days():
+    user_id = request.args.get('user_id', type=int)
+    dates = request.args.get('dates', type=str).split(",")
+
+    items = get_items_on_days(user_id, dates)
+
+    price = 0
+    for item in items:
+        print(item)
+        price += item['price']
+    return jsonify(price)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

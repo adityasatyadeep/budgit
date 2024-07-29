@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SubmitButton from '../components/SubmitButton';
-import Form from '../components/Form';
+import Form from '../components/Form/Form';
 
 const FormPage = () => {
 
