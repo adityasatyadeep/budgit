@@ -20,19 +20,19 @@ const Navbar = () => {
                         <div className="md:ml-auto">
                             <div className="flex space-x-2">
                                 <NavLink
-                                    to="/form"
+                                    to="form"
                                     className={linkClass}
                                 >
                                     Record Transaction
                                 </NavLink>
                                 <NavLink
-                                    to="/history"
+                                    to="history"
                                     className={linkClass}
                                 >
                                     History
                                 </NavLink>
                                 <NavLink
-                                    to="/calendar"
+                                    to="calendar"
                                     className={linkClass}
                                 >
                                     Calendar
