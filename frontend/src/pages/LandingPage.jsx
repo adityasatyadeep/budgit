@@ -8,7 +8,7 @@ const LandingPage = () => {
 
   const handleLogin = () => {
     // Navigate to the Okta login page
-    window.location.href = 'http://127.0.0.1:3000/login';
+    window.location.href = 'http://18.144.51.15:3000/login';
   };
 
   return (
