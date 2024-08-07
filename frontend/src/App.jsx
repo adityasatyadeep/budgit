@@ -11,6 +11,10 @@ import HistoryPage from './pages/HistoryPage';
 import CalendarPage from './pages/CalendarPage';
 import LandingPage from './pages/LandingPage';
 
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>

@@ -14,9 +14,22 @@ import jwt
 from authlib.integrations.flask_client import OAuth
 from dotenv import find_dotenv, load_dotenv
 import requests
+import secrets 
+import uuid
+
+from flask_session import Session
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True, resources={r"/*": {"origins": "http://localhost:5173"}})
+
+
+app.config['SESSION_TYPE'] = 'filesystem'
+Session(app)
+
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'None'
+
 
 cors = CORS(app, supports_credentials=True, resources={
     r"/*": {
@@ -62,13 +75,22 @@ oauth.register(
 
 @app.route("/login")
 def login():
+    state = secrets.token_urlsafe(16)
+    session['oauth_state'] = state
+    session['session_id'] = str(uuid.uuid4())
+
     return oauth.auth0.authorize_redirect(
-        redirect_uri=url_for("callback", _external=True)
+        redirect_uri=url_for("callback", _external=True),
+        state=state
     )
 
 @app.route("/callback", methods=["GET", "POST"])
 def callback():
     try:
+        # Verify the state
+        if request.args.get('state') != session.pop('oauth_state', None):
+            raise ValueError("Invalid state parameter")
+        # print(session['oauth_state'])
         token = oauth.auth0.authorize_access_token()
         id_token = token.get('id_token')
 
@@ -148,9 +170,9 @@ def upload():
         # Parse JSON data from the request
         item = request.get_json()
         item["timestamp"] = str(datetime.now())
-        user_id = session.get("user_id")  # Use user ID from session
-
         print("Session in upload:", session)
+
+        user_id = session.get("user_id")  # Use user ID from session
         if not user_id:
             raise ValueError("User ID is missing in the session")
 
