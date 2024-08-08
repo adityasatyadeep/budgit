@@ -20,7 +20,7 @@ import uuid
 from flask_session import Session
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True, resources={r"/*": {"origins": "http://18.144.51.15:5173"}})
+CORS(app, supports_credentials=True, resources={r"/*": {"origins": "http://localhost:5173"}})
 
 
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -33,7 +33,7 @@ app.config['SESSION_COOKIE_SAMESITE'] = 'None'
 
 cors = CORS(app, supports_credentials=True, resources={
     r"/*": {
-        "origins": "http://18.144.51.15:5173"  # Adjust this to match your frontend origin
+        "origins": "http://localhost:5173"  # Adjust this to match your frontend origin
     }
 })
 
@@ -121,7 +121,7 @@ def callback():
         session["user_id"] = decoded_token.get("sub")  # Store user ID separately for easy access
         print("Session after login:", session)
 
-        return redirect("http://18.144.51.15:5173/budgit")  # Redirect to the front-end main layout
+        return redirect("http://localhost:5173/budgit")  # Redirect to the front-end main layout
 
     except Exception as e:
         print(f"An error occurred during callback: {e}")
