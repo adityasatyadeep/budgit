@@ -31,7 +31,7 @@ const Form = ({ fields, options }) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://54.183.196.89:5000/upload",
+        "${import.meta.env.VITE_PUBLIC_IP}:5000/upload",
         formData
       );
 
