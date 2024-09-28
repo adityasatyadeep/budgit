@@ -47,7 +47,9 @@ const Calendar = () => {
       const date_end = endDate.toISOString().split('T')[0];
 
       // Fetch data from the server
-      const response = await axios.get(`${import.meta.env.VITE_PUBLIC_IP}:5000/getCalendarItems`, {
+      const publicIP = import.meta.env.VITE_PUBLIC_IP; // Access the environment variable
+      console.log("Public IP:", publicIP);
+      const response = await axios.get(`${publicIP}:5000/getCalendarItems`, {
         params: { user_id: "1", min_price: 0, max_price: 600, date_start: date_start, date_end: date_end },
       });
       // console.log(response.data);

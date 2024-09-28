@@ -30,8 +30,10 @@ const Form = ({ fields, options }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const publicIP = import.meta.env.VITE_PUBLIC_IP; // Access the environment variable
+      console.log("Public IP:", publicIP);
       const response = await axios.post(
-        "${import.meta.env.VITE_PUBLIC_IP}:5000/upload",
+        `${publicIP}:5000/upload`,
         formData
       );
 
