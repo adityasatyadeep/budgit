@@ -31,7 +31,7 @@ const Form = ({ fields, options }) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://127.0.0.1:5000/upload",
+        "http://54.183.196.89:5000/upload",
         formData
       );
 

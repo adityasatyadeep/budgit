@@ -44,7 +44,7 @@ const History = () => {
         // let sortRange = priceRange.sort();
         console.log({categories: filters2["categories"].join(), min_price: priceRange[0], max_price: priceRange[1] })
         
-        const response = await axios.get(`http://127.0.0.1:5000/getItems`, {
+        const response = await axios.get(`http://54.183.196.89:5000/getItems`, {
           params: { user_id: userId, categories: filters2["categories"].join(), min_price: priceRange[0], max_price: priceRange[1]},
         });
 
