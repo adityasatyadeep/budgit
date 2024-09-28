@@ -10,7 +10,7 @@ from dateutil import parser
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "http://54.183.196.89:5173"}})
 
 
 
