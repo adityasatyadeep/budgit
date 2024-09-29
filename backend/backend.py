@@ -34,10 +34,11 @@ item2 = {
 }
 def convert_to_local_time(gmt_timestamp):
     try:
+        print(gmt_timestamp)
         # Parse the GMT timestamp to a datetime object
         gmt_time = parser.isoparse(gmt_timestamp)
         print(gmt_time)
-        # return gmt_time.strftime("%Y-%m-%d %H:%M:%S")
+        return gmt_time.strftime("%Y-%m-%d %H:%M:%S")
         # Ensure the timezone is set to GMT/UTC
         if gmt_time.tzinfo is None:
             gmt_time = gmt_time.replace(tzinfo=pytz.utc)

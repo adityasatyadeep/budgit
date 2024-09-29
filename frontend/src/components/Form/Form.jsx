@@ -32,6 +32,15 @@ const Form = ({ fields, options }) => {
     try {
       const publicIP = import.meta.env.VITE_PUBLIC_IP; // Access the environment variable
       console.log("Public IP:", publicIP);
+
+      const localDate = formData.date.toDate(); // Convert to JS Date object
+      
+      // Adjust to local time and format as ISO string (without the 'Z')
+      const localISODate = new Date(localDate.getTime() - localDate.getTimezoneOffset() * 60000)
+
+      // Update formData with the formatted local ISO date
+      formData.date = localISODate;
+
       const response = await axios.post(
         `${publicIP}:5000/upload`,
         formData
