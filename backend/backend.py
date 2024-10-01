@@ -48,7 +48,7 @@ def login():
 def callback():
     token = oauth.auth0.authorize_access_token()
     session["user"] = token
-    return redirect("http://budgit.one/calendar")
+    return redirect("http://budgit.one/")
 
 @app.route("/logout")
 def logout():
