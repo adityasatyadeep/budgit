@@ -8,6 +8,8 @@ const LandingPage = () => {
 
   const handleLogin = () => {
     // Navigate to the Okta login page
+    const publicIP = import.meta.env.VITE_PUBLIC_IP; // Access the environment variable
+    console.log("Public IP:", publicIP);
     window.location.href = `${publicIP}:5000/login`;
   };
 
