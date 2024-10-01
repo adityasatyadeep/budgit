@@ -8,7 +8,7 @@ const LandingPage = () => {
 
   const handleLogin = () => {
     // Navigate to the Okta login page
-    window.location.href = 'http://localhost:5000/login';
+    window.location.href = `${publicIP}:5000/login`;
   };
 
   return (
