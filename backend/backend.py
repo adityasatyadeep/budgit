@@ -16,7 +16,7 @@ from dotenv import find_dotenv, load_dotenv
 from flask import Flask, redirect, render_template, session, url_for
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True)
 
 
 ENV_FILE = find_dotenv()
@@ -48,7 +48,7 @@ def login():
 def callback():
     token = oauth.auth0.authorize_access_token()
     session["user"] = token
-    return redirect("http://budgit.one/home")
+    return redirect(f'http://{env.get("FRONTEND_DOMAIN")}/home')
 
 @app.route("/logout")
 def logout():

@@ -16,11 +16,14 @@ const MonthView = ({ itemsByDay, month }) => {
         endDate: '2024-07-31'
     });
 
-    const getTotal = () => {
-        return Object.values(itemsByDay)
-            .flat()
+    const getTotal = (month) => {
+        console.log(itemsByDay);
+        return Object.entries(itemsByDay)
+            .filter(([date, items]) => Number(date.split("-")[1]) == month)
+            .flatMap(([date, items]) => items)
             .reduce((total, item) => total + Number(item.price), 0);
     }
+    
 
 
     const handleCardSelect = (id) => {
@@ -121,7 +124,7 @@ const MonthView = ({ itemsByDay, month }) => {
                         }}>
                         <div className=" flex flex-col justify-evenly h-full px-0.5">
                             <Typography variant="bold" sx={{ fontSize: 30 }} color={allSelected ? '#f0abfc' : '#737373'}>
-                                Total: ${getTotal().toFixed(2)}
+                                Total: ${getTotal(month).toFixed(2)}
                             </Typography>
                             <Typography variant="bold" sx={{ fontSize: 30 }} color={allSelected ? '#737373' : '#f0abfc'}>
                                 Selected: ${selectedTotal.toFixed(2)}
