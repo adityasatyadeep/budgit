@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 import { Container, Typography } from '@mui/material';
 import FilterBar from './FilterBar';
+import { AuthContext } from './AuthContext';
 
 const History = () => {
+  const { token } = useContext(AuthContext);
+
     const [rows, setRows] = useState([]);
     const [loading, setLoading] = useState(true);
     const [priceRange,setPriceRange] = useState([0,100]);
@@ -43,10 +46,19 @@ const History = () => {
       try {
         // let sortRange = priceRange.sort();
         console.log({categories: filters2["categories"].join(), min_price: priceRange[0], max_price: priceRange[1] })
-        
+        console.log("fetchData", token);
+
         const response = await axios.get(`${import.meta.env.VITE_PUBLIC_IP}:5000/getItems`, {
-          params: { user_id: userId, categories: filters2["categories"].join(), min_price: priceRange[0], max_price: priceRange[1]},
-        });
+          params: { 
+            user_id: userId, 
+            categories: filters2["categories"].join(), 
+            min_price: priceRange[0], 
+            max_price: priceRange[1]
+        },
+        headers: {
+          'Authorization': `Bearer ${token}` // Include the JWT token here
+        }
+      });
 
         // Ensure each row has a unique 'id' property
         const dataWithIds = response.data.map((item, index) => ({
@@ -68,8 +80,14 @@ const History = () => {
     }
   
     useEffect(() => {
-      fetchData();
-    }, []);
+      if (token) {
+        fetchData();
+      } else {
+        console.warn('No JWT token found. Please log in.');
+        // Optionally, redirect to login or show a message
+      }
+    }, [token, userId, filters2, priceRange]);
+  
   
     const columns = [
       { 

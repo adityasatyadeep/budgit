@@ -1,4 +1,4 @@
 backend/flask_session
 .env
-*.env
+*/.env
 *.pem
